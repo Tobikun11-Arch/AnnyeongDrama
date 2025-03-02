@@ -1,16 +1,19 @@
 import React from 'react'
 import Button from '../common/Button'
 import Logo from './Logo'
+import { useTabs } from '@/app/state/DynamicTab'
 
 export default function NotLoggedIn() {
+    const { setTab } = useTabs()
+
     return (
         <div className='flex justify-between items-center'>
            <Logo />
            <div className='flex gap-2'>
-                <Button bgColor=''>
+                <Button onClick={()=> setTab('SignIn')}>
                     Sign in
                 </Button>
-                <Button bgColor=''>
+                <Button onClick={()=> setTab('SignUp')}>
                     Sign up
                 </Button>
            </div>

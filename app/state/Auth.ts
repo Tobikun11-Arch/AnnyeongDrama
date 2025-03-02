@@ -6,6 +6,6 @@ interface authProps {
 }
 
 export const userLoggedIn = create<authProps>((set)=> ({
-    isLoggedIn: true,
+    isLoggedIn: false,
     setLoggedIn: (isLoggedIn: boolean) => set({ isLoggedIn })
 }))
