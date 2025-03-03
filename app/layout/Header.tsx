@@ -8,7 +8,7 @@ export default function Header() {
     const { isLoggedIn } = userLoggedIn()
 
     return (
-        <header className='bg-violet-900 w-full font-semibold text-white px-4 md:px-24 py-2'>
+        <header className='bg-gray-900 w-full font-semibold text-white px-4 md:px-24 py-2'>
            {isLoggedIn ? <LoggedIn/> : <NotLoggedIn/>}
         </header>
     )

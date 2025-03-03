@@ -2,6 +2,7 @@ import Image from 'next/image'
 import React from 'react'
 import Input from '../components/common/Input'
 import FormInput from '../components/FormInput'
+import Label from '../components/common/Label'
 
 export default function SignUp() {
     
@@ -36,7 +37,7 @@ export default function SignUp() {
                 {/**User form input */}
                 <form onSubmit={handleSubmit} action="" className='w-full md:w-[25rem] h-auto  flex flex-col gap-4'>
                     <FormInput>
-                        <label htmlFor="username">Username</label>
+                        <Label htmlFor="username">Username</Label>
                         <Input
                             onChange={handleChange}
                             type='text'
@@ -44,7 +45,7 @@ export default function SignUp() {
                     </FormInput>
 
                     <FormInput>
-                        <label htmlFor="gender">Gender</label>
+                        <Label htmlFor="show">Favorite kdrama</Label>
                         <Input
                             onChange={handleChange}
                             type='text'
@@ -52,23 +53,23 @@ export default function SignUp() {
                     </FormInput>
 
                     <FormInput>
-                        <label htmlFor="email">Email</label>
+                        <Label htmlFor="email">Email</Label>
                         <Input
                             onChange={handleChange}
-                            type='text'
+                            type='email'
                         />
                     </FormInput>
 
                     <FormInput>
-                        <label htmlFor="password">Password</label>
+                        <Label htmlFor="password">Password</Label>
                         <Input
                             onChange={handleChange}
-                            type='text'
+                            type='password'
                         />
                     </FormInput>
                     <div>
                         <p>Already have an account? <span className='text-blue-600'>Login</span> </p>
-                        <button className='w-full mt-2 text-white font-semibold font-mono bg-blue-600 h-10'>Sign Up</button>
+                        <button className='w-full mt-2 rounded-lg text-white font-semibold font-mono bg-blue-600 h-10'>Sign Up</button>
                     </div>
                 </form>
             </div>
