@@ -15,11 +15,11 @@ export default function SignUp() {
     }
 
     return (
-        <div className='py-7 px-24'>
+        <div className='py-7 px-6 md:px-12 xl:px-36'>
             <h1 className='text-2xl font-semibold'>Sign up for an account</h1>
             <p>Signing up for an account is free and easy. Fill out the form below to get started.</p>
-            <div className='w-full h-[600px] flex mt-12 gap-24 '>
-                <div className='w-full'>
+            <div className='h-full md:h-[600px] flex mt-12 gap-12'>
+                <div className='w-96 hidden md:block'>
                     {/**Change this later based on highest rating on Airing kdrama */}
                     <div className='h-full w-full relative'>
                         <Image
@@ -34,7 +34,7 @@ export default function SignUp() {
                 </div>
 
                 {/**User form input */}
-                <form onSubmit={handleSubmit} action=""className='w-full flex flex-col gap-4'>
+                <form onSubmit={handleSubmit} action="" className='w-full md:w-[25rem] h-auto  flex flex-col gap-4'>
                     <FormInput>
                         <label htmlFor="username">Username</label>
                         <Input
@@ -66,7 +66,10 @@ export default function SignUp() {
                             type='text'
                         />
                     </FormInput>
-                    <button className='w-3/5 text-white font-semibold font-mono bg-blue-600 h-10'>Sign Up</button>
+                    <div>
+                        <p>Already have an account? <span className='text-blue-600'>Login</span> </p>
+                        <button className='w-full mt-2 text-white font-semibold font-mono bg-blue-600 h-10'>Sign Up</button>
+                    </div>
                 </form>
             </div>
         </div>

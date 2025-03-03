@@ -17,7 +17,7 @@ export default function Logo() {
                     blurDataURL='/placeholder.webp'
                 />
             </div>
-            <h1>AnnyeongDrama</h1>
+            <h1 className='hidden sm:block'>AnnyeongDrama</h1>
         </div>
     )
 }
