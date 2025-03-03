@@ -30,10 +30,10 @@ export default function Footer() {
                     <div className='flex gap-4 items-center'>
                         <h1 className='font-semibold'>Follow us </h1>
                         <div className='flex gap-2 items-center'>
-                            <SocialLogo src='/GithubLogo.png' alt='Github logo' size='full'/>
-                            <SocialLogo src='/FacebookLogo.png' alt='Facebook logo'size='full'/>
-                            <SocialLogo src='/LinkedInLogo.png' alt='LinkedIn logo'/>
-                            <SocialLogo src='/InstagramLogo.png' alt='Instagram logo' size='lg'/>
+                            <SocialLogo src='/GithubLogo.png' alt='Github logo' size='full' href='https://github.com/Tobikun11-Arch'/>
+                            <SocialLogo src='/FacebookLogo.png' alt='Facebook logo'size='full' href='https://www.instagram.com/joen.el11/'/>
+                            <SocialLogo src='/LinkedInLogo.png' alt='LinkedIn logo' href='https://www.linkedin.com/in/joenel-sevellejo-2919a7259/'/>
+                            <SocialLogo src='/InstagramLogo.png' alt='Instagram logo' size='lg' href='https://www.instagram.com/joen.el11/'/>
                         </div>
                     </div>
                     <hr className='mt-3'/>
