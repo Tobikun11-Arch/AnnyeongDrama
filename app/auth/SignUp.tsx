@@ -1,18 +1,35 @@
 import Image from 'next/image'
-import React from 'react'
+import React, { useState } from 'react'
 import Input from '../components/common/Input'
 import FormInput from '../components/FormInput'
 import Label from '../components/common/Label'
+import { useUserStore } from '../state/Register'
+import axios from 'axios'
+import { EyeOff, Eye } from 'lucide-react';
 
 export default function SignUp() {
+    const { setUser, username, faveDrama, email, password, confirmPassword } = useUserStore()
+    const [ isMatch, setMatch ] = useState<string>('')
+    const [ isVisible, setVisible ] = useState<boolean>(false)
     
     //Handle data for registration of new user
-    function handleSubmit() {
-        console.log("submit")
-    }
+    async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+        e.preventDefault()
 
-    function handleChange() {
-        console.log("typing new data")
+        if(password !== confirmPassword) {
+            setMatch('Passwords do not match.')
+            return
+        }
+
+        const userData = {
+            username: username,
+            faveDrama: faveDrama,
+            email: email,
+            password: password
+        }
+
+        const response = await axios.post('http://localhost:5000/api/user/register', userData)
+        console.log(response.data)
     }
 
     return (
@@ -35,11 +52,12 @@ export default function SignUp() {
                 </div>
 
                 {/**User form input */}
-                <form onSubmit={handleSubmit} action="" className='w-full md:w-[25rem] h-auto  flex flex-col gap-4'>
+                <form action='/register' onSubmit={handleSubmit} className='w-full md:w-[25rem] h-auto  flex flex-col gap-4'>
                     <FormInput>
                         <Label htmlFor="username">Username</Label>
                         <Input
-                            onChange={handleChange}
+                            value={username}
+                            onChange={(e)=> setUser({ username: e.target.value })}
                             type='text'
                         />
                     </FormInput>
@@ -47,7 +65,8 @@ export default function SignUp() {
                     <FormInput>
                         <Label htmlFor="show">Favorite kdrama</Label>
                         <Input
-                            onChange={handleChange}
+                            value={faveDrama}
+                            onChange={(e)=> setUser({ faveDrama: e.target.value })}
                             type='text'
                         />
                     </FormInput>
@@ -55,21 +74,37 @@ export default function SignUp() {
                     <FormInput>
                         <Label htmlFor="email">Email</Label>
                         <Input
-                            onChange={handleChange}
+                            value={email}
+                            onChange={(e)=> setUser({ email: e.target.value })}
                             type='email'
                         />
                     </FormInput>
 
+                    <div className='relative'>
+                        <FormInput>
+                            <Label htmlFor="password">Password</Label>
+                            <Input
+                                value={password}
+                                onChange={(e)=> setUser({ password: e.target.value })}
+                                type={`${isVisible ? 'text' : 'password'}`}
+                            />
+                        </FormInput>
+                        <EyeOff className={`${!isVisible ? 'absolute right-3 bottom-2.5' : 'hidden'}`} size={20} onClick={()=> setVisible(!isVisible)} color='gray'/>
+                        <Eye className={`${isVisible ? 'absolute right-3 bottom-2.5' : 'hidden'}`} size={20} onClick={()=> setVisible(!isVisible)} color='gray'/>
+                    </div>
+
                     <FormInput>
-                        <Label htmlFor="password">Password</Label>
+                        <Label htmlFor="confirm-password">Confirm Password</Label>
                         <Input
-                            onChange={handleChange}
+                             value={confirmPassword}
+                             onChange={(e)=> setUser({ confirmPassword: e.target.value })}
                             type='password'
                         />
+                        <p className='text-sm text-red-600'>{isMatch}</p>
                     </FormInput>
                     <div>
                         <p>Already have an account? <span className='text-blue-600'>Login</span> </p>
-                        <button className='w-full mt-2 rounded-lg text-white font-semibold font-mono bg-blue-600 h-10'>Sign Up</button>
+                        <button type='submit' className='w-full mt-2 rounded-lg text-white font-semibold font-mono bg-blue-600 h-10'>Sign Up</button>
                     </div>
                 </form>
             </div>

@@ -11,7 +11,7 @@ interface SocialLogoProps {
 
 export default function SocialLogo({ alt, src, size, href }: SocialLogoProps) {
     return (
-        <Link href={`${href}`} className={`w-6 h-6 relative rounded-${size} overflow-hidden`}>
+        <Link target='_blank' href={`${href}`} className={`w-6 h-6 relative rounded-${size} overflow-hidden`}>
             <Image
                 fill
                 alt={alt}
