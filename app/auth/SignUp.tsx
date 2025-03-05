@@ -35,25 +35,39 @@ export default function SignUp() {
     
     //Handle data for registration of new user
     async function handeRegister(data: any) {
-        setSignUp(true)
+        try {
+            setSignUp(true)
 
-        const userData = {
-            username: username,
-            faveDrama: faveDrama,
-            email: email,
-            password: password
-        }
+            const userData = {
+                username: username,
+                faveDrama: faveDrama,
+                email: email,
+                password: password
+            }
 
-        const response = await axios.post('http://localhost:5000/api/user/register', userData)
-        if(response.data.message === 'User registered successfully!') {
-            setSignUp(false)
-            toast.success("Registration successful!", {
-                duration: 5000,
-                description: "You can now log in to your account.",
-            });
-            clearData()
+            const response = await axios.post('http://localhost:5000/api/user/register', userData)
+            if(response.data.message === 'User registered successfully!') {
+                setSignUp(false)
+                toast.success("Registration successful!", {
+                    duration: 3000,
+                    description: "You can now log in to your account.",
+                });
+                clearData()
+            }
+        } catch (error: any) {
+            setSignUp(false);
+            if (error.response && error.response.status === 400) {
+                toast.error("Registration unsuccessful!", {
+                    duration: 3000,
+                    description: error.response.data.message || "Email is already registered!"
+                });
+            } else {
+                toast.error("Something went wrong!", {
+                    duration: 3000,
+                    description: "Please try again later."
+                });
+            }
         }
-        console.log(data)
     }
 
     return (
