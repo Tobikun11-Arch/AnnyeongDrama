@@ -18,7 +18,7 @@ export default function SocialLogo({ alt, src, size, href }: SocialLogoProps) {
                 src={src}
                 loading='lazy'
                 placeholder='blur'
-                blurDataURL='/placeholder.webp'
+                blurDataURL='/placeholder.png'
             />
         </Link>
     )

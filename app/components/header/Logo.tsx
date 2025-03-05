@@ -10,11 +10,11 @@ export default function Logo() {
             <div className='w-12 h-12 overflow-hidden relative rounded-full'>
                 <Image
                     fill
-                    src={'/placeholder.webp'} 
+                    src={'/placeholder.png'} 
                     alt='AnnyeongDrama Logo'
                     loading='lazy'
                     placeholder='blur'
-                    blurDataURL='/placeholder.webp'
+                    blurDataURL='/placeholder.png'
                 />
             </div>
             <h1 className='hidden sm:block'>AnnyeongDrama</h1>

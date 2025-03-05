@@ -7,27 +7,35 @@ import { useUserStore } from '../state/Register'
 import axios from 'axios'
 import { EyeOff, Eye } from 'lucide-react';
 import { signUpSchema } from './ZodSchema'
-import { useForm } from "react-hook-form";
+import { Form, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import InputError from '../components/InputError'
+import { Ring } from "@uiball/loaders";
+import { Toaster, toast } from "sonner";
 
 export default function SignUp() {
     const { setUser, username, faveDrama, email, password, confirmPassword } = useUserStore()
-    const [ isMatch, setMatch ] = useState<string>('')
     const [ isVisible, setVisible ] = useState<boolean>(false)
+    const [ isSignUp, setSignUp ] = useState<boolean>(false)
 
     const { register, handleSubmit, formState: { errors } } = useForm({
         resolver: zodResolver(signUpSchema)
     });
+
+    function clearData() {
+        setUser({
+            ...Form,
+            username: '',
+            faveDrama: '',
+            email: '',
+            password: '',
+            confirmPassword: ''
+        })
+    }
     
     //Handle data for registration of new user
     async function handeRegister(data: any) {
-        console.log("Form Data:", data);
-
-        if(password !== confirmPassword) {
-            setMatch('Passwords do not match.')
-            return
-        }
+        setSignUp(true)
 
         const userData = {
             username: username,
@@ -37,11 +45,20 @@ export default function SignUp() {
         }
 
         const response = await axios.post('http://localhost:5000/api/user/register', userData)
-        console.log(response.data)
+        if(response.data.message === 'User registered successfully!') {
+            setSignUp(false)
+            toast.success("Registration successful!", {
+                duration: 5000,
+                description: "You can now log in to your account.",
+            });
+            clearData()
+        }
+        console.log(data)
     }
 
     return (
         <div className='py-7 px-6 md:px-12 xl:px-36'>
+            <Toaster position="top-right" />
             <h1 className='text-2xl font-semibold'>Sign up for an account</h1>
             <p>Signing up for an account is free and easy. Fill out the form below to get started.</p>
             <div className='h-full md:h-[600px] flex mt-5 gap-12'>
@@ -54,7 +71,7 @@ export default function SignUp() {
                             src={'/authImage.jpg'}
                             loading='lazy'
                             placeholder='blur'
-                            blurDataURL='/placeholder.webp'
+                            blurDataURL='/placeholder.png'
                         />
                     </div>
                 </div>
@@ -120,11 +137,13 @@ export default function SignUp() {
                             type='password'
                         />
                         <InputError>{errors.confirmPassword?.message}</InputError>
-                        <p className='text-sm text-red-600'>{isMatch}</p>
                     </FormInput>
+                   
                     <div className='mt-6'>
                         <p>Already have an account? <span className='text-blue-600'>Login</span> </p>
-                        <button type='submit' className='w-full mt-2 rounded-lg text-white font-semibold font-mono bg-blue-600 h-10'>Sign Up</button>
+                        <button type='submit' className='w-full mt-2 rounded-lg text-white font-semibold font-mono bg-blue-600 h-10 flex justify-center items-center'>{isSignUp ? (
+                            <Ring size={20} lineWeight={5} speed={2} color="white" />
+                        ) : 'Sign Up'}</button>
                     </div>
                 </form>
             </div>

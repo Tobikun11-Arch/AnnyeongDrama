@@ -14,11 +14,11 @@ export default function LoggedIn() {
                 <div className='w-7 h-7 overflow-hidden relative rounded-full'>
                     <Image
                         fill
-                        src={'/placeholder.webp'} 
+                        src={'/placeholder.png'} 
                         alt='AnnyeongDrama Logo'
                         loading='lazy'
                         placeholder='blur'
-                        blurDataURL='/placeholder.webp'
+                        blurDataURL='/placeholder.png'
                     />
                 </div>
             </div>
