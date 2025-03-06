@@ -6,7 +6,7 @@ import Label from '../components/common/Label'
 import { useUserStore } from '../state/Register'
 import axios from 'axios'
 import { EyeOff, Eye } from 'lucide-react';
-import { signUpSchema } from './ZodSchema'
+import { signUpSchema } from './zod_schema/ZodSchema'
 import { Form, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import InputError from '../components/InputError'
