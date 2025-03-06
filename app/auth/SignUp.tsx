@@ -155,7 +155,7 @@ export default function SignUp() {
                    
                     <div className='mt-6'>
                         <p>Already have an account? <span className='text-blue-600'>Login</span> </p>
-                        <button type='submit' className='w-full mt-2 rounded-lg text-white font-semibold font-mono bg-blue-600 h-10 flex justify-center items-center'>{isSignUp ? (
+                        <button type='submit' className='w-full mt-2 rounded-lg text-white font-semibold font-mono bg-blue-600 h-10 flex justify-center items-center' disabled={isSignUp}>{isSignUp ? (
                             <Ring size={20} lineWeight={5} speed={2} color="white" />
                         ) : 'Sign Up'}</button>
                     </div>
