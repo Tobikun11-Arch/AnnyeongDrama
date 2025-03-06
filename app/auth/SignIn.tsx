@@ -3,10 +3,10 @@ import React, { useState } from 'react'
 import Input from '../components/common/Input'
 import FormInput from '../components/FormInput'
 import Label from '../components/common/Label'
-import { useUserStore } from '../state/Register'
+import { useUserAcct } from '../state/Login'
 import axios from 'axios'
 import { EyeOff, Eye } from 'lucide-react';
-import { signUpSchema } from './zod_schema/ZodSchema'
+import { signInSchema } from './zod_schema/ZodSchema'
 import { Form, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import InputError from '../components/InputError'
@@ -14,70 +14,68 @@ import { Ring } from "@uiball/loaders";
 import { Toaster, toast } from "sonner";
 
 export default function SignIn() {
-    const { setUser, username, faveDrama, email, password, confirmPassword } = useUserStore()
+    const { setUser, email, password } = useUserAcct()
     const [ isVisible, setVisible ] = useState<boolean>(false)
-    const [ isSignUp, setSignUp ] = useState<boolean>(false)
+    const [ isSignIn, setSignIn ] = useState<boolean>(false)
 
     const { register, handleSubmit, formState: { errors } } = useForm({
-        resolver: zodResolver(signUpSchema)
+        resolver: zodResolver(signInSchema)
     });
 
     function clearData() {
         setUser({
             ...Form,
-            username: '',
-            faveDrama: '',
             email: '',
-            password: '',
-            confirmPassword: ''
+            password: ''
         })
     }
     
     //Handle data for registration of new user
     async function handeRegister(data: any) {
-        try {
-            setSignUp(true)
+        console.log(data)
+        // try {
+        //     setSignUp(true)
 
-            const userData = {
-                username: username,
-                faveDrama: faveDrama,
-                email: email,
-                password: password
-            }
+        //     const userData = {
+        //         username: username,
+        //         faveDrama: faveDrama,
+        //         email: email,
+        //         password: password
+        //     }
 
-            const response = await axios.post('http://localhost:5000/api/user/register', userData)
-            if(response.data.message === 'User registered successfully!') {
-                setSignUp(false)
-                toast.success("Registration successful!", {
-                    duration: 3000,
-                    description: "You can now log in to your account.",
-                });
-                clearData()
-            }
-        } catch (error: any) {
-            setSignUp(false);
-            if (error.response && error.response.status === 400) {
-                toast.error("Registration unsuccessful!", {
-                    duration: 3000,
-                    description: error.response.data.message || "Email is already registered!"
-                });
-            } else {
-                toast.error("Something went wrong!", {
-                    duration: 3000,
-                    description: "Please try again later."
-                });
-            }
-        }
+        //     const response = await axios.post('http://localhost:5000/api/user/register', userData)
+        //     if(response.data.message === 'User registered successfully!') {
+        //         setSignUp(false)
+        //         toast.success("Registration successful!", {
+        //             duration: 3000,
+        //             description: "You can now log in to your account.",
+        //         });
+        //         clearData()
+        //     }
+        // } catch (error: any) {
+        //     setSignUp(false);
+        //     if (error.response && error.response.status === 400) {
+        //         toast.error("Registration unsuccessful!", {
+        //             duration: 3000,
+        //             description: error.response.data.message || "Email is already registered!"
+        //         });
+        //     } else {
+        //         toast.error("Something went wrong!", {
+        //             duration: 3000,
+        //             description: "Please try again later."
+        //         });
+        //     }
+        // }
     }
 
     return (
         <div className='py-7 px-6 md:px-12 xl:px-36'>
             <Toaster position="top-right" />
-            <h1 className='text-2xl font-semibold'>Sign up for an account</h1>
-            <p>Signing up for an account is free and easy. Fill out the form below to get started.</p>
+            <h1 className='text-2xl font-semibold'>Sign In to your account</h1>
+            <p>Welcome back! Please enter your credentials to access your account. If you don’t have an account yet, signing up is quick and free. Fill in the details below to continue.</p>
             <div className='h-full md:h-[600px] flex mt-5 gap-12'>
                 <div className='w-96 hidden md:block'>
-                    {/**Change this later based on highest rating on Airing kdrama */}
+                    {/**Change this later based on New kdrama released that day */}
                     <div className='h-full w-full relative'>
                         <Image
                             fill
@@ -121,8 +119,8 @@ export default function SignIn() {
                     </div>
                    
                     <div className='mt-6'>
-                        <p>Already have an account? <span className='text-blue-600'>Login</span> </p>
-                        <button type='submit' className='w-full mt-2 rounded-lg text-white font-semibold font-mono bg-blue-600 h-10 flex justify-center items-center'>{isSignUp ? (
+                        <p>Don't have an account? <span className='text-blue-600'>Create an account</span> </p>
+                        <button type='submit' className='w-full mt-2 rounded-lg text-white font-semibold font-mono bg-blue-600 h-10 flex justify-center items-center'>{isSignIn ? (
                             <Ring size={20} lineWeight={5} speed={2} color="white" />
                         ) : 'Sign In'}</button>
                     </div>
