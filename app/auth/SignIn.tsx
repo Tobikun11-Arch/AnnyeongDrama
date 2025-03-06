@@ -12,11 +12,13 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import InputError from '../components/InputError'
 import { Ring } from "@uiball/loaders";
 import { Toaster, toast } from "sonner";
+import { userLoggedIn } from '../state/Auth'
 
 export default function SignIn() {
     const { setUser, email, password } = useUserAcct()
     const [ isVisible, setVisible ] = useState<boolean>(false)
     const [ isSignIn, setSignIn ] = useState<boolean>(false)
+    const { setLoggedIn } = userLoggedIn()
 
     const { register, handleSubmit, formState: { errors } } = useForm({
         resolver: zodResolver(signInSchema)
@@ -36,43 +38,41 @@ export default function SignIn() {
 
         try {
             setSignIn(true)
-        } catch (error) {
-            
+
+            const userData = {
+                email: email,
+                password: password
+            }
+
+            const response = await axios.post('http://localhost:5000/api/user/login', userData)
+            if(response.data.message === 'Login successful') {
+                setSignIn(false)
+                toast.success("Login successful", {
+                    duration: 3000,
+                    description: "Welcome to AnnyeongDrama", 
+                });
+                clearData()
+                setLoggedIn(true)
+            }
+        } catch (error: any) {
+            setSignIn(false);
+            if (error.response && error.response.status === 404) {
+                toast.error("Email not found", {
+                    duration: 3000,
+                    description: "Please enter a registered email."
+                });
+            } else if (error.response && error.response.status === 401) {
+                toast.error("Incorrect password", {
+                    duration: 3000,
+                    description: "Please check your password and try again.",
+                });
+            } else {
+                toast.error("Something went wrong!", {
+                    duration: 3000,
+                    description: "Please try again later."
+                });
+            }
         }
-
-        // try {
-        //     setSignUp(true)
-
-        //     const userData = {
-        //         username: username,
-        //         faveDrama: faveDrama,
-        //         email: email,
-        //         password: password
-        //     }
-
-        //     const response = await axios.post('http://localhost:5000/api/user/register', userData)
-        //     if(response.data.message === 'User registered successfully!') {
-        //         setSignUp(false)
-        //         toast.success("Registration successful!", {
-        //             duration: 3000,
-        //             description: "You can now log in to your account.",
-        //         });
-        //         clearData()
-        //     }
-        // } catch (error: any) {
-        //     setSignUp(false);
-        //     if (error.response && error.response.status === 400) {
-        //         toast.error("Registration unsuccessful!", {
-        //             duration: 3000,
-        //             description: error.response.data.message || "Email is already registered!"
-        //         });
-        //     } else {
-        //         toast.error("Something went wrong!", {
-        //             duration: 3000,
-        //             description: "Please try again later."
-        //         });
-        //     }
-        // }
     }
 
     return (
@@ -96,7 +96,7 @@ export default function SignIn() {
                 </div>
 
                 {/**User form input */}
-                <form action='/register' onSubmit={handleSubmit(handeRegister)} className='w-full md:w-[25rem] h-auto flex flex-col gap-4'>
+                <form action='/login' onSubmit={handleSubmit(handeRegister)} className='w-full md:w-[25rem] h-auto flex flex-col gap-4'>
                     <FormInput>
                         <Label htmlFor="email">Email</Label>
                         <Input
