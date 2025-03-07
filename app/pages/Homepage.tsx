@@ -6,13 +6,21 @@ import SignUp from '../auth/SignUp'
 import SignIn from '../auth/SignIn'
 import Page from '../components/homepage/page'
 import Footer from '../layout/Footer'
+import UserProfile from './UserProfile'
+import Recommendations from './Recommendations'
+import Community from './Community'
+import WeeklyChallenge from './WeeklyChallenge'
 
 export default function Homepage() {
     const { isTab } = useTabs()
 
     const tabComponents: Record<string, JSX.Element> = {
         'SignUp': <SignUp/>,
-        'SignIn': <SignIn/>
+        'SignIn': <SignIn/>,
+        'MyAccount': <UserProfile/>,
+        "Recommendations": <Recommendations/>,
+        "Community": <Community/>,
+        "Challenge": <WeeklyChallenge/>
     }
 
     return (
