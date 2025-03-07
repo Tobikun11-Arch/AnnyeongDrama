@@ -7,7 +7,6 @@ import NavBar from '../nav/NavBar';
 import { useTabs } from '@/app/state/DynamicTab';
 import axios from 'axios';
 import { userLoggedIn } from '@/app/state/Auth';
-import AdramaLoading from '@/app/loading/AdramaLoading';
 import { Toaster, toast } from "sonner";
 
 export default function LoggedIn() {
@@ -46,6 +45,7 @@ export default function LoggedIn() {
                     duration: 3000,
                     description: "You have been signed out. See you again soon!", 
                 });
+                setTab("Home")
             } 
         } catch (error) {
             console.error("Error: ", error)

@@ -31,15 +31,13 @@ const fetchAuth = async(): Promise<ApiResponseData> => {
 }
 
 export default function AuthProvider({ children }: authProps) {
-    const [ isFirstRender, setIsFirstRender ] = useState(true);
     const { setData } = useUserData()
     const { setTab } = useTabs()
     const { setLoggedIn } = userLoggedIn()
 
     const { data, isLoading, error } = useQuery<ApiResponseData>({
         queryKey: ['Verification'],
-        queryFn: fetchAuth,
-        enabled: isFirstRender
+        queryFn: fetchAuth
     })
 
     useEffect(() => {
@@ -52,7 +50,6 @@ export default function AuthProvider({ children }: authProps) {
                 setData(data.user)
             }
         }
-        setIsFirstRender(false)
     }, [data, setTab, setLoggedIn, setData]);
 
     if(isLoading) return <AdramaLoading/>

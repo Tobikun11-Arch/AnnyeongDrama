@@ -129,7 +129,7 @@ export default function SignIn() {
                     </div>
                    
                     <div className='mt-6'>
-                        <p>Don't have an account? <span className='text-blue-600'>Create an account</span> </p>
+                        <p>Don't have an account? <span className='text-blue-600' onClick={()=> setTab('SignUp')}>Create an account</span> </p>
                         <button type='submit' className='w-full mt-2 rounded-lg text-white font-semibold font-mono bg-blue-600 h-10 flex justify-center items-center' disabled={isSignIn}>{isSignIn ? (
                             <Ring size={20} lineWeight={5} speed={2} color="white" />
                         ) : 'Sign In'}</button>

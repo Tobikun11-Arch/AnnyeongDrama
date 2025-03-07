@@ -22,6 +22,7 @@ export interface IUser {
     Watching: string;
     Following: number;
     Follower: number;
+    AboutMe: string
     Posts: IPosts[];
     __v: number;
 }

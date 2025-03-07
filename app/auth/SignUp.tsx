@@ -12,11 +12,13 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import InputError from '../components/InputError'
 import { Ring } from "@uiball/loaders";
 import { Toaster, toast } from "sonner";
+import { useTabs } from '../state/DynamicTab'
 
 export default function SignUp() {
     const { setUser, username, faveDrama, email, password, confirmPassword } = useUserStore()
     const [ isVisible, setVisible ] = useState<boolean>(false)
     const [ isSignUp, setSignUp ] = useState<boolean>(false)
+    const { setTab } = useTabs()
 
     const { register, handleSubmit, formState: { errors } } = useForm({
         resolver: zodResolver(signUpSchema)
@@ -52,6 +54,9 @@ export default function SignUp() {
                     duration: 3000,
                     description: "You can now log in to your account.",
                 });
+                setTimeout(() => {
+                    setTab("SignIn")
+                }, 1000);
                 clearData()
             }
         } catch (error: any) {
@@ -154,7 +159,7 @@ export default function SignUp() {
                     </FormInput>
                    
                     <div className='mt-6'>
-                        <p>Already have an account? <span className='text-blue-600'>Login</span> </p>
+                        <p>Already have an account? <span className='text-blue-600' onClick={()=> setTab('SignIn')}>Login</span> </p>
                         <button type='submit' className='w-full mt-2 rounded-lg text-white font-semibold font-mono bg-blue-600 h-10 flex justify-center items-center' disabled={isSignUp}>{isSignUp ? (
                             <Ring size={20} lineWeight={5} speed={2} color="white" />
                         ) : 'Sign Up'}</button>
