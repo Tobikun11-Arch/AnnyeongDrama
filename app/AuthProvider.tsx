@@ -1,5 +1,5 @@
 'use client'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import axios from 'axios'
 import { useTabs } from './state/DynamicTab'
@@ -31,13 +31,15 @@ const fetchAuth = async(): Promise<ApiResponseData> => {
 }
 
 export default function AuthProvider({ children }: authProps) {
+    const [ isFirstRender, setIsFirstRender ] = useState(true);
     const { setData } = useUserData()
     const { setTab } = useTabs()
     const { setLoggedIn } = userLoggedIn()
 
     const { data, isLoading, error } = useQuery<ApiResponseData>({
         queryKey: ['Verification'],
-        queryFn: fetchAuth
+        queryFn: fetchAuth,
+        enabled: isFirstRender
     })
 
     useEffect(() => {
@@ -50,17 +52,14 @@ export default function AuthProvider({ children }: authProps) {
                 setData(data.user)
             }
         }
-    }, [data, setTab, setLoggedIn]);
+        setIsFirstRender(false)
+    }, [data, setTab, setLoggedIn, setData]);
 
-    if(isLoading) return (
-        <div className='h-screen flex justify-center items-center bg-white text-black'>
-            <h1>Loading...</h1>
-        </div>
-    )
+    if(isLoading) return <AdramaLoading/>
 
     if(error) return (
         <div className='h-screen flex justify-center items-center bg-white text-black'>
-            <h1>Error to authenticate</h1>
+            <h1 className='text-3xl text-red-600 font-bold'>Error to authenticate</h1>
         </div>
     )
 

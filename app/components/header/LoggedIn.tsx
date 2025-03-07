@@ -7,6 +7,8 @@ import NavBar from '../nav/NavBar';
 import { useTabs } from '@/app/state/DynamicTab';
 import axios from 'axios';
 import { userLoggedIn } from '@/app/state/Auth';
+import AdramaLoading from '@/app/loading/AdramaLoading';
+import { Toaster, toast } from "sonner";
 
 export default function LoggedIn() {
     const [ isOpen, setOpen ] = useState<boolean>(false)
@@ -37,7 +39,13 @@ export default function LoggedIn() {
         try {
             const response = await axios.post('http://localhost:5000/Signout', {}, { withCredentials: true })
             if(response.status === 200) {
-                setLoggedIn(false)
+                setTimeout(() => {
+                    setLoggedIn(false)
+                }, 1000);
+                toast.success("Signout successful", {
+                    duration: 3000,
+                    description: "You have been signed out. See you again soon!", 
+                });
             } 
         } catch (error) {
             console.error("Error: ", error)
@@ -46,6 +54,7 @@ export default function LoggedIn() {
 
     return (
         <div className='flex justify-evenly items-center'>
+            <Toaster position='top-right'/>
             <Logo />
             <NavBar/>
             <div className='flex gap-2 items-center'>
