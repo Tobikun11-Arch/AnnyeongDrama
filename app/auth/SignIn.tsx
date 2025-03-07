@@ -13,12 +13,14 @@ import InputError from '../components/InputError'
 import { Ring } from "@uiball/loaders";
 import { Toaster, toast } from "sonner";
 import { userLoggedIn } from '../state/Auth'
+import { useTabs } from '../state/DynamicTab'
 
 export default function SignIn() {
     const { setUser, email, password } = useUserAcct()
     const [ isVisible, setVisible ] = useState<boolean>(false)
     const [ isSignIn, setSignIn ] = useState<boolean>(false)
     const { setLoggedIn } = userLoggedIn()
+    const { setTab } = useTabs()
 
     const { register, handleSubmit, formState: { errors } } = useForm({
         resolver: zodResolver(signInSchema)
@@ -33,9 +35,7 @@ export default function SignIn() {
     }
     
     //Handle data for registration of new user
-    async function handeRegister(data: any) {
-        console.log(data)
-
+    async function handleLogin(data: any) {
         try {
             setSignIn(true)
 
@@ -44,13 +44,14 @@ export default function SignIn() {
                 password: password
             }
 
-            const response = await axios.post('http://localhost:5000/api/user/login', userData)
+            const response = await axios.post('http://localhost:5000/api/user/login', userData, { withCredentials: true })
             if(response.data.message === 'Login successful') {
                 setSignIn(false)
                 toast.success("Login successful", {
                     duration: 3000,
                     description: "Welcome to AnnyeongDrama", 
                 });
+                setTab("Home")
                 clearData()
                 setLoggedIn(true)
             }
@@ -96,7 +97,7 @@ export default function SignIn() {
                 </div>
 
                 {/**User form input */}
-                <form action='/login' onSubmit={handleSubmit(handeRegister)} className='w-full md:w-[25rem] h-auto flex flex-col gap-4'>
+                <form action='/login' onSubmit={handleSubmit(handleLogin)} className='w-full md:w-[25rem] h-auto flex flex-col gap-4'>
                     <FormInput>
                         <Label htmlFor="email">Email</Label>
                         <Input
