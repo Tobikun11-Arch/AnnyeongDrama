@@ -7,7 +7,7 @@ export default function Logo() {
 
     return (
         <div className='flex gap-1 items-center' onClick={()=> setTab('Home')}>
-            <div className='w-12 h-12 overflow-hidden relative rounded-full'>
+            <div className='w-10 h-10 overflow-hidden relative rounded-full'>
                 <Image
                     fill
                     src={'/placeholder.png'} 

@@ -53,14 +53,13 @@ export default function LoggedIn() {
     }
 
     return (
-        <div className='flex justify-evenly items-center'>
-            <Toaster position='top-right'/>
+        <div className='flex justify-around items-center'>
             <Logo />
             <NavBar/>
             <div className='flex gap-2 items-center'>
                 <Bell size={25}/>
                 <div className='relative' ref={dropdownRef}>
-                    <div className='w-7 h-7 overflow-hidden relative rounded-full' onClick={()=> setOpen(!isOpen)}>
+                    <div className='w-10 h-10 overflow-hidden relative rounded-full' onClick={()=> setOpen(!isOpen)}>
                         <Image
                             fill
                             src={'/user_profile_placeholder.jpg'} 
@@ -70,8 +69,9 @@ export default function LoggedIn() {
                             blurDataURL='/placeholder.png'
                         />
                     </div>
+                    <Toaster position='top-right'/>
                     {isOpen && (
-                        <div className='absolute font-medium right-0 top-8 rounded-lg py-2 px-4 bg-white shadow-md text-black w-32 flex flex-col justify-center'>
+                        <div className='absolute font-medium right-0 top-11 rounded-lg py-2 px-4 bg-white shadow-md text-black w-32 flex flex-col justify-center'>
                             <p className='hover:text-blue-600' onClick={()=> setTab('MyAccount')}>My account</p>
                             <p>Bookmarks</p>
                             <p>Favorites</p>
