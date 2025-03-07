@@ -4,10 +4,12 @@ import { useQuery } from '@tanstack/react-query'
 import axios from 'axios'
 import { useTabs } from './state/DynamicTab'
 import { userLoggedIn } from './state/Auth'
+import { useUserData } from './state/UserData'
+import { IUser } from './types/userData'
 
 interface ApiResponseData {
     message: string;
-    user: string;
+    user: IUser[];
 }
 
 interface authProps {
@@ -20,7 +22,7 @@ const fetchAuth = async(): Promise<ApiResponseData> => {
         return response.data
     } catch (error: any) {
         if (error.response && error.response.status === 401 || 403) {
-                return { message: 'Unauthorized', user: '' }; 
+                return { message: 'Unauthorized', user: [] }; 
         }
         console.error("Error: ", error)
         throw new Error("Failed to authenticate")
@@ -28,6 +30,7 @@ const fetchAuth = async(): Promise<ApiResponseData> => {
 }
 
 export default function AuthProvider({ children }: authProps) {
+    const { setData } = useUserData()
     const { setTab } = useTabs()
     const { setLoggedIn } = userLoggedIn()
 
@@ -43,6 +46,7 @@ export default function AuthProvider({ children }: authProps) {
                 setLoggedIn(false);
             } else if (data.message === "You are authorized") {
                 setLoggedIn(true);
+                setData(data.user)
             }
         }
     }, [data, setTab, setLoggedIn]);
