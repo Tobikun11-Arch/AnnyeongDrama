@@ -21,7 +21,7 @@ export default function UserProfile() {
         <main className='p-6'>
             {userdata.map((user, index)=> (
                 <div key={`${user.Username}-${index}`} >
-                    <section className='w-full flex justify-between px-32'>
+                    <section className='w-full flex justify-between px-32 pb-4'>
                         <div className='flex gap-2 justify-center'>
                             <div className='relative h-24 w-24 overflow-hidden rounded-full'>
                                 <Image
@@ -33,11 +33,11 @@ export default function UserProfile() {
                                 />
                             </div>
                             <div>
-                            <h1 className='font-semibold text-xl'>{user.Username}</h1>
-                            <div className='flex items-center'>
-                                <Play size={16} className='mt-0.5'/>
-                                <h4 className='font-semibold text-red-500'>{user.FaveKdrama}</h4>
-                            </div>
+                                <h1 className='font-semibold text-xl'>{user.Username}</h1>
+                                <div className='flex items-center'>
+                                    <Play size={16} className='mt-0.5'/>
+                                    <h4 className='font-semibold text-red-500'>{user.FaveKdrama}</h4>
+                                </div>
                             </div>
                         </div>
 
@@ -53,8 +53,8 @@ export default function UserProfile() {
                         </div>
                         <EditProfile isOpen={isOpen} closeModal={closeModal} />
                     </section>
-                    
-                    <div className='flex flex-col justify-center items-center mt-10 py-2'>
+                    <hr />
+                    <div className='flex flex-col justify-center items-center mt-5 py-2'>
                         <h1 className='font-italic font-semibold text-2xl mb-2'>About me</h1>
                         {user.AboutMe ? (
                             <h1 className='text-gray-500 text-lg'>{user.AboutMe}</h1>
@@ -66,7 +66,7 @@ export default function UserProfile() {
                         )}
                     </div>
 
-                    <h1 className='mt-5 text-2xl font-bold font-mono'>Recommmendations</h1>
+                    <h1 className='mt-8 text-2xl font-bold font-mono'>Recommmendations</h1>
                     <div>
 
                     </div>

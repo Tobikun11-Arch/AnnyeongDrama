@@ -7,9 +7,11 @@ interface LabelProps {
     id: string
     placeholder: string
     children: React.ReactNode
+    onchange: React.ChangeEventHandler<HTMLInputElement>
+    value: string
 }
 
-export default function Label({ htmlFor, type, name, id, placeholder, children }: LabelProps) {
+export default function Label({ htmlFor, type, name, id, placeholder, children, onchange, value }: LabelProps) {
     return (
         <label htmlFor={htmlFor} className="block">
             <p>{children}</p>
@@ -19,6 +21,8 @@ export default function Label({ htmlFor, type, name, id, placeholder, children }
                 id={id}
                 className="w-full p-2 outline-none rounded-lg border"
                 placeholder={placeholder}
+                value={value}
+                onChange={onchange}
             />
         </label>
     )

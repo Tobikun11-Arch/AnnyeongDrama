@@ -14,8 +14,10 @@ import { Ring } from "@uiball/loaders";
 import { Toaster, toast } from "sonner";
 import { userLoggedIn } from '../state/Auth'
 import { useTabs } from '../state/DynamicTab'
+import { useQueryClient } from '@tanstack/react-query';
 
 export default function SignIn() {
+    const queryClient = useQueryClient();
     const { setUser, email, password } = useUserAcct()
     const [ isVisible, setVisible ] = useState<boolean>(false)
     const [ isSignIn, setSignIn ] = useState<boolean>(false)
@@ -53,6 +55,7 @@ export default function SignIn() {
                 setTimeout(() => {
                     setTab("Home")
                     setLoggedIn(true)
+                    queryClient.invalidateQueries({ queryKey: ['Verification'] });
                 }, 1500);
                 setSignIn(false)
                 clearData()
