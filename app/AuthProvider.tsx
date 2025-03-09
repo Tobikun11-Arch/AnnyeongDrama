@@ -8,7 +8,7 @@ import { useUserData } from './state/UserData'
 import { IUser } from './types/userData'
 import AdramaLoading from './loading/AdramaLoading'
 
-interface ApiResponseData {
+export interface ApiResponseData {
     message: string;
     user: IUser[];
 }

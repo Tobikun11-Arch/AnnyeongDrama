@@ -1,11 +1,13 @@
 "use client"
-import React, { Fragment, useState, useRef } from "react";
+import React, { Fragment, useState, useRef, useEffect } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { useUserData } from "@/app/state/UserData";
 import Label from "./Label";
 import Image from "next/image";
 import { PenLine } from 'lucide-react';
 import axios from "axios";
+import { useQueryClient } from '@tanstack/react-query';
+import { Ring } from "@uiball/loaders";
 
 interface EditProps {
   isOpen: boolean;
@@ -13,9 +15,12 @@ interface EditProps {
 }
 
 export default function EditProfile({ isOpen, closeModal }: EditProps) {
+   const queryClient = useQueryClient();
   const { userdata } = useUserData()
   const [ image, setImage ] = useState<File | null>(null)
+  const [ url, setUrl ] = useState<string>('')
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const [loading, setLoading] = useState<boolean>(false);
   const [ form, setForm ] = useState({
     username: '',
     faveKdrama: '',
@@ -25,35 +30,47 @@ export default function EditProfile({ isOpen, closeModal }: EditProps) {
 
   const handleSubmit = (userId: string) => async(e: React.FormEvent<HTMLFormElement>) => {  
     e.preventDefault()
+    setLoading(true)
 
-    if(image) {
+      if(image) {
+        try {
+           //Converting to blob object
+          const formData = new FormData()
+          formData.append("file", image)
+          formData.append('upload_preset', 'AnnyeongDrama');
+  
+          //sending and getting url from cloudinary
+          const cloudinary_response = await axios.post(cloudinary, formData)
+          setUrl(cloudinary_response.data.secure_url)
+        } catch (error) {
+          console.error("Try error: ", error)
+        }
+      }
 
       try {
-        //Converting to blob object
-        const formData = new FormData()
-        formData.append("file", image)
-        formData.append('upload_preset', 'AnnyeongDrama');
-
-        //sending and getting url from cloudinary
-        const cloudinary_response = await axios.post(cloudinary, formData)
-
         const newData = {
           userId: userId,
           username: form.username,
           faveKdrama: form.faveKdrama,
           watching: form.watching,
-          ProfileImg: cloudinary_response.data.secure_url
+          ProfileImg: url
         } 
 
         const response = await axios.post("http://localhost:5000/api/user/update", newData, { withCredentials: true })
-        console.log("Response: ", response.data)
+        closeModal(); 
+        queryClient.invalidateQueries({ queryKey: ['Verification'] });
+
+        if(response.data.message === "Update successfully") {
+          setTimeout(() => {
+            setLoading(false); 
+          }, 1000);
+        }
 
       } catch (error) {
         console.error("Try error: ", error)
+        setLoading(false);
       }
       
-    }
-
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -67,10 +84,22 @@ export default function EditProfile({ isOpen, closeModal }: EditProps) {
     const file = e.target.files?.[0];
     if (file) {
       setImage(file);
+      setUrl(URL.createObjectURL(file));
     }
   };
 
+  const user = userdata[0]; 
+
   return (
+    <>
+    {loading && (
+      <div className="fixed inset-0 flex items-center justify-center bg-white bg-opacity-50 z-50">
+        <div className="flex flex-col items-center">
+          <Ring size={35} lineWeight={5} speed={2} color="blue" />
+        </div>
+      </div>
+    )}
+
     <Transition appear show={isOpen} as={Fragment}>
       <Dialog as="div" className="relative z-10" onClose={closeModal}>
         <Transition.Child
@@ -107,7 +136,7 @@ export default function EditProfile({ isOpen, closeModal }: EditProps) {
                     <div className='w-16 h-16 overflow-hidden relative rounded-full place-items-center'>
                         <Image
                             fill
-                            src={'/user_profile_placeholder.jpg'} 
+                            src={url || user?.ProfileImg || "/user_profile_placeholder.jpg"} 
                             alt='user profile'
                             loading='lazy'
                             placeholder='blur'
@@ -148,5 +177,6 @@ export default function EditProfile({ isOpen, closeModal }: EditProps) {
         </div>
       </Dialog>
     </Transition>
+    </>
   );
 }

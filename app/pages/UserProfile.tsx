@@ -36,7 +36,7 @@ export default function UserProfile() {
                                 <h1 className='font-semibold text-xl'>{user.Username}</h1>
                                 <div className='flex items-center'>
                                     <Play size={16} className='mt-0.5'/>
-                                    <h4 className='font-semibold text-red-500'>{user.FaveKdrama}</h4>
+                                    <h4 className='font-semibold text-red-500'>{user.Watching}</h4>
                                 </div>
                             </div>
                         </div>
