@@ -1,10 +1,11 @@
 "use client"
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useState, useRef } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { useUserData } from "@/app/state/UserData";
 import Label from "./Label";
 import Image from "next/image";
 import { PenLine } from 'lucide-react';
+import axios from "axios";
 
 interface EditProps {
   isOpen: boolean;
@@ -13,16 +14,45 @@ interface EditProps {
 
 export default function EditProfile({ isOpen, closeModal }: EditProps) {
   const { userdata } = useUserData()
+  const [ image, setImage ] = useState<File | null>(null)
+  const fileInputRef = useRef<HTMLInputElement>(null);
   const [ form, setForm ] = useState({
     username: '',
     faveKdrama: '',
     watching: ''
   })
+  const cloudinary = process.env.NEXT_PUBLIC_CLOUDINARY || ''
 
-  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {  
+  const handleSubmit = (userId: string) => async(e: React.FormEvent<HTMLFormElement>) => {  
     e.preventDefault()
 
-    console.log(form.username)
+    if(image) {
+
+      try {
+        //Converting to blob object
+        const formData = new FormData()
+        formData.append("file", image)
+        formData.append('upload_preset', 'AnnyeongDrama');
+
+        //sending and getting url from cloudinary
+        const cloudinary_response = await axios.post(cloudinary, formData)
+
+        const newData = {
+          userId: userId,
+          username: form.username,
+          faveKdrama: form.faveKdrama,
+          watching: form.watching,
+          ProfileImg: cloudinary_response.data.secure_url
+        } 
+
+        const response = await axios.post("http://localhost:5000/api/user/update", newData, { withCredentials: true })
+        console.log("Response: ", response.data)
+
+      } catch (error) {
+        console.error("Try error: ", error)
+      }
+      
+    }
 
   }
 
@@ -31,7 +61,14 @@ export default function EditProfile({ isOpen, closeModal }: EditProps) {
       ...form, 
       [e.target.name]: e.target.value
     });
-}
+  }
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      setImage(file);
+    }
+  };
 
   return (
     <Transition appear show={isOpen} as={Fragment}>
@@ -79,13 +116,13 @@ export default function EditProfile({ isOpen, closeModal }: EditProps) {
                     </div>
                     <div className="flex flex-col justify-between">
                         <p className="text-sm ml-2 text-gray-500">Change profile picture*</p>
-                        <PenLine size={16} className="-ml-3" color="black"/>
+                        <input type="file" accept="image/*" className="hidden" onChange={handleFileChange} ref={fileInputRef}/>
+                        <PenLine size={16} className="-ml-3 hover:cursor-pointer" color="black" onClick={()=>  fileInputRef.current?.click()}/>
                     </div>
                 </div>
                 {userdata.map((user, index)=> (
                     <div className="mt-2" key={`${user.Username}-${index}`}>
-                        <form action="" className="flex flex-col gap-2" onSubmit={handleSubmit}>
-
+                        <form action="/new/data" className="flex flex-col gap-2" onSubmit={handleSubmit(user._id)}>
                             <Label htmlFor="username" type="text" name="username" id="username" placeholder={user.Username} value={form.username} onchange={handleChange}>
                                 Username
                             </Label>
@@ -99,7 +136,7 @@ export default function EditProfile({ isOpen, closeModal }: EditProps) {
                             </Label>
         
                             <div className="w-full flex gap-2 mt-5">
-                                <button className="w-full rounded-lg py-2 bg-white text-black border hover:bg-blue-600 hover:text-white font-semibold" onClick={closeModal}>Cancel</button>
+                                <button className="w-full rounded-lg py-2 bg-white text-black border hover:bg-blue-600 hover:text-white font-semibold" type="button"  onClick={closeModal}>Cancel</button>
                                 <button className="w-full rounded-lg py-2 bg-black text-white font-semibold" type="submit">Submit</button>
                             </div>
                         </form>

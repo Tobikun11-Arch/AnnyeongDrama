@@ -19,6 +19,7 @@ export interface IUser {
     FaveKdrama: string;
     Email: string;
     Password: string;
+    ProfileImg: string
     Watching: string;
     Following: number;
     Follower: number;

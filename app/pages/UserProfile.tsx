@@ -26,7 +26,7 @@ export default function UserProfile() {
                             <div className='relative h-24 w-24 overflow-hidden rounded-full'>
                                 <Image
                                     fill
-                                    src={'/user_profile_placeholder.jpg'}
+                                    src={`${user.ProfileImg ? user.ProfileImg : '/user_profile_placeholder.jpg'}`}
                                     alt={`${user.Username} Profile`}
                                     loading='lazy'
                                     blurDataURL='/placeholder.png'
