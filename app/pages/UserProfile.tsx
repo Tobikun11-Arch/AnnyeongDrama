@@ -7,7 +7,6 @@ import EditProfile from '../components/user-profile/EditProfile';
 
 export default function UserProfile() {
     const { userdata } = useUserData()
-
     let [isOpen, setIsOpen] = useState(false)
 
     function closeModal() {

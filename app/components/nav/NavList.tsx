@@ -2,7 +2,7 @@ import React from 'react'
 
 interface NavListProps {
     children: React.ReactNode
-    onclick: React.MouseEventHandler<HTMLLIElement>
+    onclick: ()=> void
 }
 
 export default function NavList({ children, onclick }: NavListProps) {

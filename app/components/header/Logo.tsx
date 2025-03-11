@@ -6,7 +6,7 @@ export default function Logo() {
     const { setTab } = useTabs()
 
     return (
-        <div className='hidden sm:flex items-center' onClick={()=> setTab('Home')}>
+        <div className='hidden md:flex items-center' onClick={()=> setTab('Home')}>
             <div className='w-10 h-10 overflow-hidden relative rounded-full'>
                 <Image
                     fill
