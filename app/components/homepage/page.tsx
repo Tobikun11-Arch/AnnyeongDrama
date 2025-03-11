@@ -1,7 +1,9 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import TopRatingBanner from './TopRatingBanner'
 import axios from 'axios'
-import { useQuery } from '@tanstack/react-query'
+import { useQuery, useSuspenseQuery } from '@tanstack/react-query'
+import { TMDBResponse } from '@/app/types/dramaData'
+import KdramaList from './KdramaList'
 
 const API_KEY = process.env.NEXT_PUBLIC_API_KEY
 const fetchdata = async() => {
@@ -15,21 +17,27 @@ const fetchdata = async() => {
         return response.data.results
     } catch (error) {
         console.error('Error fetching genres:', error);
+        return []
     }
 }
 
 export default function Page() {
-    const { data } = useQuery({
+    const { isLoading, data } = useSuspenseQuery<TMDBResponse>({
         queryKey: ['Kdrama'],
         queryFn: fetchdata
     })
 
-    console.log("data: ", data)
+    if(isLoading) {
+        return <h1>Loading</h1>
+    }
 
     return (
-        <div>
+        <main>
             <TopRatingBanner/>
-            <button className='bg-black text-white flex justify-center items-center' onClick={fetchdata}>Test data</button>
-        </div>
+            
+            <h1>Now Airing K-Dramas</h1>
+            <KdramaList drama={data} />
+
+        </main>
     )
 }
