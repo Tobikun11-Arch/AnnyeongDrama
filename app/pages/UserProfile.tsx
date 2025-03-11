@@ -64,14 +64,10 @@ export default function UserProfile() {
                     <hr />
                     <div className='flex flex-col justify-center items-center mt-5 py-2'>
                         <h1 className='font-italic font-semibold text-2xl mb-2'>About me</h1>
-                        {user.AboutMe ? (
-                            <h1 className='text-gray-500 text-lg'>{user.AboutMe}</h1>
-                        ) : (
-                            <div className='flex items-center gap-1'>
-                                <h1 className='text-gray-500 text-lg'>Add a short bio.</h1>
-                                <PenLine size={15} className='mt-1' onClick={addBio}/>
-                            </div>
-                        )}
+                        <div className='flex items-center gap-1'>
+                            <h1 className='text-gray-500 text-lg'>{user.AboutMe ? user.AboutMe : 'Add a short bio.'}</h1>
+                            <PenLine size={15} className='mt-1' onClick={addBio}/>
+                        </div>
                     </div>
 
                     <h1 className='mt-8 text-2xl font-bold font-mono'>Recommmendations</h1>

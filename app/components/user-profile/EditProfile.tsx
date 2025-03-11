@@ -19,19 +19,20 @@ export default function EditProfile({ isOpen, closeModal, isBio }: EditProps) {
    const queryClient = useQueryClient();
   const { userdata } = useUserData()
   const [ image, setImage ] = useState<File | null>(null)
-  const [ url, setUrl ] = useState<string>('')
   const [ preview, setPreview ] = useState<string>('')
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [ form, setForm ] = useState({
     username: '',
     faveKdrama: '',
-    watching: ''
+    watching: '',
+    bio: ''
   })
   const cloudinary = process.env.NEXT_PUBLIC_CLOUDINARY || ''
 
   const handleSubmit = (userId: string) => async(e: React.FormEvent<HTMLFormElement>) => {  
     e.preventDefault()
+    let url = ''
     setLoading(true)
 
       if(image) {
@@ -43,7 +44,7 @@ export default function EditProfile({ isOpen, closeModal, isBio }: EditProps) {
   
           //sending and getting url from cloudinary
           const cloudinary_response = await axios.post(cloudinary, formData)
-          setUrl(cloudinary_response.data.secure_url)
+          url = cloudinary_response.data.secure_url
         } catch (error) {
           console.error("Try error: ", error)
         }
@@ -55,7 +56,8 @@ export default function EditProfile({ isOpen, closeModal, isBio }: EditProps) {
           username: form.username,
           faveKdrama: form.faveKdrama,
           watching: form.watching,
-          ProfileImg: url || userdata[0].ProfileImg
+          bio: form.bio,
+          ProfileImg: url
         } 
 
         const response = await axios.post("http://localhost:5000/api/user/update", newData, { withCredentials: true })
@@ -74,13 +76,14 @@ export default function EditProfile({ isOpen, closeModal, isBio }: EditProps) {
       }
       
   }
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setForm({ 
-      ...form, 
-      [e.target.name]: e.target.value
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    setForm({
+      ...form,
+      [e.target.name]: e.target.value,
     });
-  }
+  };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -136,7 +139,7 @@ export default function EditProfile({ isOpen, closeModal, isBio }: EditProps) {
                     <div className='w-16 h-16 overflow-hidden relative rounded-full place-items-center'>
                         <Image
                             fill
-                            src={preview || preview || "/user_profile_placeholder.jpg"} 
+                            src={preview || preview || userdata[0].ProfileImg || "/user_profile_placeholder.jpg"} 
                             alt='user profile'
                             loading='lazy'
                             placeholder='blur'
@@ -167,7 +170,7 @@ export default function EditProfile({ isOpen, closeModal, isBio }: EditProps) {
                             {isBio && (
                              <div>
                                <p>Add Bio</p>
-                               <textarea name="bio" id="bio" className="w-full text-sm h-24 resize-none border p-2 outline-none rounded-lg" placeholder="I love this web app"></textarea>
+                               <textarea name="bio" id="bio" className="w-full text-sm h-24 resize-none border p-2 outline-none rounded-lg" placeholder={`${user.AboutMe ? user.AboutMe : 'I love this web app'}`} value={form.bio} onChange={handleChange}></textarea>
                              </div>
                             )}
         
