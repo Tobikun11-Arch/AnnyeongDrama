@@ -16,4 +16,3 @@ interface TVShow {
 }
   
 export type TMDBResponse = TVShow[];
-  
