@@ -8,12 +8,14 @@ import { useTabs } from '@/app/state/DynamicTab';
 import axios from 'axios';
 import { userLoggedIn } from '@/app/state/Auth';
 import { Toaster, toast } from "sonner";
+import { useUserData } from '@/app/state/UserData';
 
 export default function LoggedIn() {
     const [ isOpen, setOpen ] = useState<boolean>(false)
     const dropdownRef = useRef<HTMLDivElement>(null);
     const { setTab } = useTabs()
     const { setLoggedIn } = userLoggedIn()
+    const { userdata } = useUserData()
 
     //For closing the dropdown automatic if user doesn't use it
     useEffect(()=> {
@@ -53,7 +55,7 @@ export default function LoggedIn() {
     }
 
     return (
-        <div className='flex justify-around items-center'>
+        <div className='flex justify-between sm:justify-around items-center'>
             <Logo />
             <NavBar/>
             <div className='flex gap-2 items-center'>
@@ -62,7 +64,7 @@ export default function LoggedIn() {
                     <div className='w-10 h-10 overflow-hidden relative rounded-full' onClick={()=> setOpen(!isOpen)}>
                         <Image
                             fill
-                            src={'/user_profile_placeholder.jpg'} 
+                            src={`${userdata ? userdata[0].ProfileImg : '/user_profile_placeholder.jpg'}`} 
                             alt='user profile'
                             loading='lazy'
                             placeholder='blur'

@@ -7,7 +7,7 @@ export default function NavBar() {
 
     return (
         <nav>
-            <ul className='flex gap-10'>
+            <ul className='hidden sm:flex gap-10'>
                 <NavList onclick={()=> setTab("Recommendations")}>Recommendations</NavList>
                 <NavList onclick={()=> setTab("Community")}>Community</NavList>
                 <NavList onclick={()=> setTab("Challenge")}>Weekly Challenge</NavList>

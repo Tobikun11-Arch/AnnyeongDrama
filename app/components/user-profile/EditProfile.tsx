@@ -12,10 +12,9 @@ import { Ring } from "@uiball/loaders";
 interface EditProps {
   isOpen: boolean;
   closeModal: () => void;
-  isBio: boolean
 }
 
-export default function EditProfile({ isOpen, closeModal, isBio }: EditProps) {
+export default function EditProfile({ isOpen, closeModal }: EditProps) {
    const queryClient = useQueryClient();
   const { userdata } = useUserData()
   const [ image, setImage ] = useState<File | null>(null)
@@ -167,12 +166,10 @@ export default function EditProfile({ isOpen, closeModal, isBio }: EditProps) {
                                Currently Watching
                             </Label>
 
-                            {isBio && (
                              <div>
                                <p>Add Bio</p>
                                <textarea name="bio" id="bio" className="w-full text-sm h-24 resize-none border p-2 outline-none rounded-lg" placeholder={`${user.AboutMe ? user.AboutMe : 'I love this web app'}`} value={form.bio} onChange={handleChange}></textarea>
                              </div>
-                            )}
         
                             <div className="w-full flex gap-2 mt-5">
                                 <button className="w-full rounded-lg py-2 bg-white text-black border hover:bg-blue-600 hover:text-white font-semibold" type="button"  onClick={closeModal}>Cancel</button>

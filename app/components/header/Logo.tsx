@@ -6,11 +6,11 @@ export default function Logo() {
     const { setTab } = useTabs()
 
     return (
-        <div className='flex gap-1 items-center' onClick={()=> setTab('Home')}>
+        <div className='hidden sm:flex items-center' onClick={()=> setTab('Home')}>
             <div className='w-10 h-10 overflow-hidden relative rounded-full'>
                 <Image
                     fill
-                    src={'/placeholder.png'} 
+                    src={'/AnnyeongDramaLogo.png'} 
                     alt='AnnyeongDrama Logo'
                     loading='lazy'
                     placeholder='blur'
