@@ -7,14 +7,22 @@ import EditProfile from '../components/user-profile/EditProfile';
 
 export default function UserProfile() {
     const { userdata } = useUserData()
+    const [ isBio, setBio ] = useState<boolean>(false)
+
     let [isOpen, setIsOpen] = useState(false)
 
     function closeModal() {
         setIsOpen(false);
+        setBio(false)
     }
     
     function openModal() {
         setIsOpen(true);
+    }
+
+    function addBio() {
+        setIsOpen(true);
+        setBio(true)
     }
 
     return (
@@ -51,7 +59,7 @@ export default function UserProfile() {
                                 Edit
                             </button>
                         </div>
-                        <EditProfile isOpen={isOpen} closeModal={closeModal} />
+                        <EditProfile isOpen={isOpen} closeModal={closeModal} isBio={isBio}/>
                     </section>
                     <hr />
                     <div className='flex flex-col justify-center items-center mt-5 py-2'>
@@ -61,7 +69,7 @@ export default function UserProfile() {
                         ) : (
                             <div className='flex items-center gap-1'>
                                 <h1 className='text-gray-500 text-lg'>Add a short bio.</h1>
-                                <PenLine size={15} className='mt-1'/>
+                                <PenLine size={15} className='mt-1' onClick={addBio}/>
                             </div>
                         )}
                     </div>

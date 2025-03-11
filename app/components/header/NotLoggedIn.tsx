@@ -7,7 +7,7 @@ export default function NotLoggedIn() {
     const { setTab } = useTabs()
 
     return (
-        <div className='flex justify-between items-center'>
+        <div className='flex justify-around items-center'>
            <Logo />
            <div className='flex gap-2'>
                 <Button onClick={()=> setTab('SignIn')}>

@@ -12,13 +12,15 @@ import { Ring } from "@uiball/loaders";
 interface EditProps {
   isOpen: boolean;
   closeModal: () => void;
+  isBio: boolean
 }
 
-export default function EditProfile({ isOpen, closeModal }: EditProps) {
+export default function EditProfile({ isOpen, closeModal, isBio }: EditProps) {
    const queryClient = useQueryClient();
   const { userdata } = useUserData()
   const [ image, setImage ] = useState<File | null>(null)
   const [ url, setUrl ] = useState<string>('')
+  const [ preview, setPreview ] = useState<string>('')
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [ form, setForm ] = useState({
@@ -53,7 +55,7 @@ export default function EditProfile({ isOpen, closeModal }: EditProps) {
           username: form.username,
           faveKdrama: form.faveKdrama,
           watching: form.watching,
-          ProfileImg: url
+          ProfileImg: url || userdata[0].ProfileImg
         } 
 
         const response = await axios.post("http://localhost:5000/api/user/update", newData, { withCredentials: true })
@@ -84,11 +86,9 @@ export default function EditProfile({ isOpen, closeModal }: EditProps) {
     const file = e.target.files?.[0];
     if (file) {
       setImage(file);
-      setUrl(URL.createObjectURL(file));
+      setPreview(URL.createObjectURL(file));
     }
   };
-
-  const user = userdata[0]; 
 
   return (
     <>
@@ -136,7 +136,7 @@ export default function EditProfile({ isOpen, closeModal }: EditProps) {
                     <div className='w-16 h-16 overflow-hidden relative rounded-full place-items-center'>
                         <Image
                             fill
-                            src={url || user?.ProfileImg || "/user_profile_placeholder.jpg"} 
+                            src={preview || preview || "/user_profile_placeholder.jpg"} 
                             alt='user profile'
                             loading='lazy'
                             placeholder='blur'
@@ -163,6 +163,13 @@ export default function EditProfile({ isOpen, closeModal }: EditProps) {
                             <Label htmlFor="watching" type="text" name="watching" id="watching" placeholder={user.Watching ? user.Watching : 'e.g Study group'} value={form.watching} onchange={handleChange}>
                                Currently Watching
                             </Label>
+
+                            {isBio && (
+                             <div>
+                               <p>Add Bio</p>
+                               <textarea name="bio" id="bio" className="w-full text-sm h-24 resize-none border p-2 outline-none rounded-lg" placeholder="I love this web app"></textarea>
+                             </div>
+                            )}
         
                             <div className="w-full flex gap-2 mt-5">
                                 <button className="w-full rounded-lg py-2 bg-white text-black border hover:bg-blue-600 hover:text-white font-semibold" type="button"  onClick={closeModal}>Cancel</button>
