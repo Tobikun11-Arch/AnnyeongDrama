@@ -10,14 +10,10 @@ import { totalPages } from '@/app/api/KdramaApi'
 export default function Page() {
     const [currentPage, setCurrentPage] = useState(1);
 
-    const { isLoading, data } = useSuspenseQuery<TMDBResponse>({
+    const { data } = useSuspenseQuery<TMDBResponse>({
         queryKey: ['Kdrama', currentPage],
         queryFn: ()=> fetchdata(currentPage)
     })
-
-    if(isLoading) {
-        return <h1>Loading</h1>
-    }
 
     function paginationImage(action: string) {
         if (action === "previous" && currentPage > 1) {
@@ -30,15 +26,15 @@ export default function Page() {
         return currentPage
     }
 
-    
-
     return (
         <main>
-
             <TopRatingBanner/>
             
-            <div className='px-52 py-5'>
-                <h1 className='font-mono font-semibold text-xl'>Airing K-Dramas</h1>
+            <div className='px-4 xl:px-52 py-5'>
+                <div className='flex justify-between items-center'>
+                    <h1 className='font-mono font-bold text-sm sm:text-2xl'>Airing K-Dramas</h1>
+                    <input type="text" name="" id="" className='w-36 sm:w-60 outline-none border p-2 rounded-lg' placeholder='Search kdramas'/>
+                </div>
                 <KdramaList drama={data} />
 
                 <div className='flex gap-3 mt-5'>
@@ -47,7 +43,6 @@ export default function Page() {
                     <button onClick={()=> paginationImage('next')}>Next</button>
                 </div>
             </div>
-
         </main>
     )
 }
