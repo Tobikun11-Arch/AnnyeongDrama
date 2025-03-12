@@ -2,6 +2,8 @@ import axios from "axios";
 
 export let totalPages = 0
 
+const isEnglishTitle = (title: string) => /^[A-Za-z0-9\s!@#$%^&*()_+=\-`~.,'"?/<>;:{}[\]]+$/.test(title);
+
 const API_KEY = process.env.NEXT_PUBLIC_API_KEY
 export const fetchdata = async(page: number) => {
     try {
@@ -21,9 +23,21 @@ export const fetchdata = async(page: number) => {
                 page: page
             },
         });
-        const filteredResults = response.data.results.filter(
-            (drama: { poster_path: any; }) => drama.poster_path
+
+        let filteredResults = response.data.results.filter(
+            (drama: { poster_path: string | null; name: string }) =>
+                drama.poster_path && isEnglishTitle(drama.name)
         );
+
+        // If no English titles exist, fallback to Korean titles (with posters)
+        if (filteredResults.length === 0) {
+            filteredResults = response.data.results.filter(
+                (drama: { poster_path: string | null }) => drama.poster_path
+            );
+        }
+
+
+        console.log("results: ", response.data)
         
         const limitedResults = filteredResults.slice(0, 12);
         totalPages = response.data.total_pages

@@ -28,20 +28,24 @@ export default function Page() {
         }
 
         return currentPage
-
     }
+
+    
 
     return (
         <main>
+
             <TopRatingBanner/>
             
-            <h1>Now Airing K-Dramas</h1>
-            <KdramaList drama={data} />
+            <div className='px-52 py-5'>
+                <h1 className='font-mono font-semibold text-xl'>Airing K-Dramas</h1>
+                <KdramaList drama={data} />
 
-            <div>
-                <button onClick={()=> paginationImage('previous')}>Previous</button>
-                <p>{currentPage}</p>
-                <button onClick={()=> paginationImage('next')}>Next</button>
+                <div className='flex gap-3 mt-5'>
+                    <button onClick={()=> paginationImage('previous')}>Previous</button>
+                    <p>{currentPage}</p>
+                    <button onClick={()=> paginationImage('next')}>Next</button>
+                </div>
             </div>
 
         </main>

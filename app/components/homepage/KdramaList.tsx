@@ -9,7 +9,7 @@ interface AiringProps {
 export default function KdramaList({ drama }: AiringProps) {
 
     return (
-        <div className='p-4 grid grid-cols-2 lg:grid-cols-6 gap-2'>
+        <div className='grid grid-cols-2 lg:grid-cols-6 gap-4 mt-3'>
             {drama.map((airing, index) => (
                 <div key={`${airing}-${index}`}>
                     <div className='w-full h-72 relative'>
