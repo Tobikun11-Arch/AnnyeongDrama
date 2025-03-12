@@ -6,6 +6,7 @@ import { useSuspenseQuery } from '@tanstack/react-query'
 import { TMDBResponse } from '@/app/types/dramaData'
 import KdramaList from './KdramaList'
 import { totalPages } from '@/app/api/KdramaApi'
+import { ChevronLeft, ChevronRight } from 'lucide-react'
 
 export default function Page() {
     const [currentPage, setCurrentPage] = useState(1);
@@ -21,6 +22,8 @@ export default function Page() {
             return
         } else if(action === "next" && currentPage <  totalPages) {
             setCurrentPage(prev => prev + 1);
+        } else if (action === "lastpage") {
+            setCurrentPage(totalPages)
         }
 
         return currentPage
@@ -37,10 +40,16 @@ export default function Page() {
                 </div>
                 <KdramaList drama={data} />
 
-                <div className='flex gap-3 mt-5'>
-                    <button onClick={()=> paginationImage('previous')}>Previous</button>
-                    <p>{currentPage}</p>
-                    <button onClick={()=> paginationImage('next')}>Next</button>
+                <div className='flex gap-2 mt-5 items-center justify-end'>
+                    <button className='py-1 px-2 rounded-lg border' onClick={()=> paginationImage('previous')}><ChevronLeft /></button>
+                    {currentPage > 1 ? (
+                        <p className='py-1 px-2 rounded-lg border' onClick={()=> paginationImage('previous')}>{`${currentPage - 1}`}</p>
+                    ) : ''}
+                    <p className='py-1 px-2 rounded-lg border'>{currentPage}</p>
+                    {currentPage < totalPages && currentPage > 1 ? (
+                        <p className='py-1 px-2 rounded-lg border' onClick={()=> paginationImage('lastpage')}>...{totalPages}</p>
+                    ) : ''}
+                    <button className='py-1 px-2 rounded-lg border' onClick={()=> paginationImage('next')}><ChevronRight /></button>
                 </div>
             </div>
         </main>
