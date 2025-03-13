@@ -36,9 +36,6 @@ export const fetchdata = async(page: number) => {
             );
         }
 
-
-        console.log("results: ", response.data)
-        
         const limitedResults = filteredResults.slice(0, 12);
         totalPages = response.data.total_pages
           
