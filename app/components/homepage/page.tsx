@@ -29,8 +29,12 @@ export default function Page() {
         return currentPage
     }
 
+    console.log(data)
+
+
     return (
         <main>
+            <div className='h-2 bg-red-700'></div>
             <TopRatingBanner/>
             
             {/**Airing kdrama ui */}

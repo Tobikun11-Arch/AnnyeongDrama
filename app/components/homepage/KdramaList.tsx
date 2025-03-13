@@ -14,8 +14,7 @@ export default function KdramaList({ drama }: AiringProps) {
         <div className="overflow-x-auto overflow-visible w-full">
             <div className="grid grid-cols-12 xl:grid-cols-6 gap-4 mt-3 min-w-max xl:min-w-full p-2">
                 {drama.map((airing, index) => (
-                    <Link key={`${airing}-${index}`} href={`/ADramaUser/${airing.id}`} passHref>
-                        <div className='mb-5 xl:mb-0 bg-white shadow-md rounded-lg'>
+                    <Link key={`${airing}-${index}`} href={`/ADramaUser/${airing.id}`} passHref className='mb-5 xl:mb-0 bg-white shadow-md rounded-lg'>
                         <div className='w-full h-72 relative rounded-lg'>
                             <Image
                                 fill
@@ -37,7 +36,6 @@ export default function KdramaList({ drama }: AiringProps) {
                             })}
                             </p>
                         </div>
-                    </div>
                     </Link>
                 ))}
             </div>
