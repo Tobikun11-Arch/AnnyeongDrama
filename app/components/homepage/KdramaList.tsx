@@ -12,10 +12,10 @@ export default function KdramaList({ drama }: AiringProps) {
 
     return (
         <div className="overflow-x-auto overflow-visible w-full">
-            <div className="grid grid-cols-12 xl:grid-cols-6 gap-4 mt-3 min-w-max xl:min-w-full p-2">
+            <div className="grid grid-cols-20 xl:grid-cols-10 gap-3 mt-3 min-w-max xl:min-w-full p-2">
                 {drama.map((airing, index) => (
                     <Link key={`${airing}-${index}`} href={`/ADramaUser/${airing.id}`} passHref className='mb-5 xl:mb-0 bg-white shadow-md rounded-lg'>
-                        <div className='w-full h-72 relative rounded-lg'>
+                        <div className='w-full h-72 xl:h-44 relative rounded-lg'>
                             <Image
                                 fill
                                 loading='lazy'
@@ -28,7 +28,9 @@ export default function KdramaList({ drama }: AiringProps) {
                             <div className="absolute inset-0 hover:bg-black/40 rounded-t-lg" />
                         </div>
                         <div className='pt-2 px-2 pb-4'>
-                            <h1 className='text-md font-bold '>{airing.name}</h1>   
+                            <h1 className="text-md font-bold">
+                                {airing.name.length > 16 ? `${airing.name.substring(0, 13)}..` : airing.name}
+                            </h1>
                             <p className='text-gray-400 font-semibold text-xs'> {new Date(airing.first_air_date).toLocaleDateString('en-US', {
                                 year: 'numeric',
                                 month: 'long',

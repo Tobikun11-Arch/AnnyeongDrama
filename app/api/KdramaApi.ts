@@ -26,20 +26,12 @@ export const fetchdata = async(page: number) => {
 
         let filteredResults = response.data.results.filter(
             (drama: { poster_path: string | null; name: string }) =>
-                drama.poster_path && isEnglishTitle(drama.name)
+                drama.poster_path
         );
 
-        // If no English titles exist, fallback to Korean titles (with posters)
-        if (filteredResults.length === 0) {
-            filteredResults = response.data.results.filter(
-                (drama: { poster_path: string | null }) => drama.poster_path
-            );
-        }
-
-        const limitedResults = filteredResults.slice(0, 12);
         totalPages = response.data.total_pages
           
-        return limitedResults
+        return filteredResults
     } catch (error) {
         console.error('Error fetching genres:', error);
         return []
