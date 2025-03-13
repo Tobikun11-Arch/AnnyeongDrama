@@ -7,6 +7,7 @@ import { TMDBResponse } from '@/app/types/dramaData'
 import KdramaList from './KdramaList'
 import { totalPages } from '@/app/api/KdramaApi'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
+import BannerReco from './BannerReco'
 
 export default function Page() {
     const [currentPage, setCurrentPage] = useState(1);
@@ -33,7 +34,7 @@ export default function Page() {
 
 
     return (
-        <main>
+        <main className='pb-5'>
             <TopRatingBanner/>
             
             {/**Airing kdrama ui */}
@@ -56,6 +57,8 @@ export default function Page() {
                     <button className='py-1 px-2 rounded-lg border' onClick={()=> paginationImage('next')}><ChevronRight /></button>
                 </div>
             </div>
+
+            <BannerReco/>
         </main>
     )
 }

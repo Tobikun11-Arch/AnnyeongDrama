@@ -15,7 +15,7 @@ export default function KdramaList({ drama }: AiringProps) {
             <div className="grid grid-cols-20 xl:grid-cols-10 gap-3 mt-3 min-w-max xl:min-w-full p-2">
                 {drama.map((airing, index) => (
                     <Link key={`${airing}-${index}`} href={`/ADramaUser/${airing.id}`} passHref className='mb-5 xl:mb-0 bg-white shadow-md rounded-lg'>
-                        <div className='w-full h-72 xl:h-44 relative rounded-lg'>
+                        <div className='w-full h-72 xl:h-52 relative rounded-lg'>
                             <Image
                                 fill
                                 loading='lazy'
