@@ -33,22 +33,22 @@ export default function Page() {
         <main>
             <TopRatingBanner/>
             
-            <div className='px-4 xl:px-52 py-5'>
+            {/**Airing kdrama ui */}
+            <div className='px-4 xl:px-40 py-5'>
                 <div className='flex justify-between items-center'>
                     <h1 className='font-mono font-bold text-sm sm:text-2xl'>Airing K-Dramas</h1>
                     <input type="text" name="" id="" className='w-36 sm:w-60 outline-none border p-2 rounded-lg' placeholder='Search kdramas'/>
                 </div>
                 <KdramaList drama={data} />
-
                 <div className='flex gap-2 mt-5 items-center justify-end'>
                     <button className='py-1 px-2 rounded-lg border' onClick={()=> paginationImage('previous')}><ChevronLeft /></button>
-                    {currentPage > 1 ? (
+                    {currentPage > 1 && (
                         <p className='py-1 px-2 rounded-lg border' onClick={()=> paginationImage('previous')}>{`${currentPage - 1}`}</p>
-                    ) : ''}
+                    )}
                     <p className='py-1 px-2 rounded-lg border'>{currentPage}</p>
-                    {currentPage < totalPages && currentPage > 1 ? (
+                    {currentPage < totalPages && currentPage > 1 && (
                         <p className='py-1 px-2 rounded-lg border' onClick={()=> paginationImage('lastpage')}>...{totalPages}</p>
-                    ) : ''}
+                    )}
                     <button className='py-1 px-2 rounded-lg border' onClick={()=> paginationImage('next')}><ChevronRight /></button>
                 </div>
             </div>
