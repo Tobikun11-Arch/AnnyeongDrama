@@ -1,7 +1,7 @@
 'use client'
 import React, { useState } from 'react'
 import TopRatingBanner from './TopRatingBanner'
-import { fetchdata } from '@/app/api/KdramaApi'
+import { fetchdata, fetchPopular } from '@/app/api/KdramaApi'
 import { useSuspenseQuery } from '@tanstack/react-query'
 import { TMDBResponse } from '@/app/types/dramaData'
 import KdramaList from './KdramaList'
@@ -17,6 +17,11 @@ export default function Page() {
         queryFn: ()=> fetchdata(currentPage)
     })
 
+    const { data: popular } = useSuspenseQuery<TMDBResponse>({
+        queryKey: ['PopularKdrama'],
+        queryFn: fetchPopular
+    })
+
     function paginationImage(action: string) {
         if (action === "previous" && currentPage > 1) {
             setCurrentPage(prev => prev - 1);
@@ -29,9 +34,6 @@ export default function Page() {
 
         return currentPage
     }
-
-    console.log(data)
-
 
     return (
         <main className='pb-5'>
@@ -57,8 +59,9 @@ export default function Page() {
                     <button className='py-1 px-2 rounded-lg border' onClick={()=> paginationImage('next')}><ChevronRight /></button>
                 </div>
             </div>
-
-            <BannerReco/>
+            
+            {/**Change to most reco */}
+            <BannerReco Drama={popular}/>
         </main>
     )
 }
