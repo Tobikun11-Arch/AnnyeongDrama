@@ -8,6 +8,7 @@ import KdramaList from './KdramaList'
 import { totalPages } from '@/app/api/KdramaApi'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import BannerReco from './BannerReco'
+import News from './News'
 
 export default function Page() {
     const [currentPage, setCurrentPage] = useState(1);
@@ -58,10 +59,9 @@ export default function Page() {
                     )}
                     <button className='py-1 px-2 rounded-lg border' onClick={()=> paginationImage('next')}><ChevronRight /></button>
                 </div>
+                <BannerReco Drama={popular}/>
+                <News />
             </div>
-            
-            {/**Change to most reco */}
-            <BannerReco Drama={popular}/>
         </main>
     )
 }

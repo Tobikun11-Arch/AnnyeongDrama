@@ -29,8 +29,8 @@ export default function BannerReco({ Drama }: BannerProps) {
  const genreNames = Drama[0].genre_ids.map(id => genresMap[id]).filter(Boolean).join(", ");
 
   return (
-    <div className='px-4 xl:px-20 mt-5'>
-      <div className="relative font-nunito w-full px-5 py-8 h-[700px] rounded-xl">
+    <div className='py-5'>
+      <div className="relative font-nunito w-full px-5 py-8 h-[37.5rem] rounded-xl">
         <Image 
           loading='lazy'
           placeholder='blur'
@@ -40,17 +40,17 @@ export default function BannerReco({ Drama }: BannerProps) {
           fill
           className="absolute inset-24 rounded-xl"
         />
-        <div className="absolute inset-0 bg-black/40 rounded-xl font-semibold"/>
+        <div className="absolute inset-0 bg-black/60 rounded-xl font-semibold"/>
 
-        <div className='absolute bottom-28 left-24 text-white flex flex-col gap-2'>
+        <div className='absolute bottom-52 left-24 text-white flex flex-col gap-2'>
           <div>
             <h1 className='text-4xl font-bold font-mono'>{Drama[0].name}</h1>
             <h1 className='text-red-600'>{genreNames}</h1>
           </div>
-          <h1 className='w-3/5'>{Drama[0].overview}</h1>
+          <h1 className='w-2/5 mt-5'>{Drama[0].overview}</h1>
         </div>
 
-        <div className='trailer absolute right-12 bottom-24 text-white'>
+        <div className='trailer absolute right-12 bottom-20 text-white'>
           <div className='relative w-48 h-72'>
             <Image 
               loading='lazy'
