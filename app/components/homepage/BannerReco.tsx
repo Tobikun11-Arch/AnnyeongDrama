@@ -26,24 +26,45 @@ const genresMap: Record<number, string> = {
 };
 
 export default function BannerReco({ Drama }: BannerProps) {
- const genreNames = Drama[2].genre_ids.map(id => genresMap[id]).filter(Boolean).join(", ");
+ const genreNames = Drama[0].genre_ids.map(id => genresMap[id]).filter(Boolean).join(", ");
 
   return (
     <div className='px-4 xl:px-20 mt-5'>
       <div className="relative font-nunito w-full px-5 py-8 h-[700px] rounded-xl">
         <Image 
-          src={`https://image.tmdb.org/t/p/original${Drama[2].backdrop_path}`} 
+          loading='lazy'
+          placeholder='blur'
+          blurDataURL='/placeholder.png'
+          src={`https://image.tmdb.org/t/p/original${Drama[0].backdrop_path}`} 
           alt="Banner" 
           fill
           className="absolute inset-24 rounded-xl"
         />
-        <div className="absolute inset-0 bg-black/40 rounded-xl" />
-          <div className='absolute bottom-4 left-4 text-white'>
-            <h1 className='text-3xl font-bold font-mono'>{Drama[2].name}</h1>
-            <h1>{Drama[2].overview}</h1>
-            <h1>{genreNames}</h1>
+        <div className="absolute inset-0 bg-black/40 rounded-xl font-semibold"/>
+
+        <div className='absolute bottom-28 left-24 text-white flex flex-col gap-2'>
+          <div>
+            <h1 className='text-4xl font-bold font-mono'>{Drama[0].name}</h1>
+            <h1 className='text-red-600'>{genreNames}</h1>
           </div>
-      </div>  
-    </div>
+          <h1 className='w-3/5'>{Drama[0].overview}</h1>
+        </div>
+
+        <div className='trailer absolute right-12 bottom-24 text-white'>
+          <div className='relative w-48 h-72'>
+            <Image 
+              loading='lazy'
+              placeholder='blur'
+              blurDataURL='/placeholder.png'
+              src={`https://image.tmdb.org/t/p/original${Drama[0].poster_path}`} 
+              alt="Banner" 
+              fill
+              className="absolute inset-24"
+            />
+          </div>
+        </div>
+
+      </div>
+    </div>  
   )
 }
