@@ -40,14 +40,14 @@ export default function BannerReco({ Drama }: BannerProps) {
           fill
           className="absolute inset-24 rounded-xl"
         />
-        <div className="absolute inset-0 bg-black/60 rounded-xl font-semibold"/>
+        <div className="absolute inset-0 bg-black/60 rounded-xl"/>
 
-        <div className='absolute bottom-52 left-24 text-white flex flex-col gap-2'>
+        <div className='absolute bottom-36 left-24 text-white font-bold flex flex-col gap-2'>
           <div>
-            <h1 className='text-4xl font-bold font-mono'>{Drama[0].name}</h1>
+            <h1 className='text-[3.125rem] font-mono'>{Drama[0].name}</h1>
             <h1 className='text-red-600'>{genreNames}</h1>
           </div>
-          <h1 className='w-2/5 mt-5'>{Drama[0].overview}</h1>
+          <h1 className='w-2/5 mt-5 text-gray-300'>{Drama[0].overview}</h1>
         </div>
 
         <div className='trailer absolute right-12 bottom-20 text-white'>

@@ -8,7 +8,7 @@ import KdramaList from './KdramaList'
 import { totalPages } from '@/app/api/KdramaApi'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import BannerReco from './BannerReco'
-import News from './News'
+import NewRelease from './NewRelease'
 
 export default function Page() {
     const [currentPage, setCurrentPage] = useState(1);
@@ -41,7 +41,7 @@ export default function Page() {
             <TopRatingBanner/>
             
             {/**Airing kdrama ui */}
-            <div className='px-4 xl:px-20 py-5'>
+            <div className='px-4 xl:px-16 py-5'>
                 <div className='flex justify-between items-center px-2'>
                     <h1 className='font-mono font-bold text-sm sm:text-2xl'>Airing K-Dramas</h1>
                     <input type="text" name="" id="" className='w-36 sm:w-60 outline-none border p-2 rounded-lg' placeholder='Search kdramas'/>
@@ -60,7 +60,7 @@ export default function Page() {
                     <button className='py-1 px-2 rounded-lg border' onClick={()=> paginationImage('next')}><ChevronRight /></button>
                 </div>
                 <BannerReco Drama={popular}/>
-                <News />
+                <NewRelease Release={popular}/>
             </div>
         </main>
     )

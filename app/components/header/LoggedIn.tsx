@@ -75,7 +75,7 @@ export default function LoggedIn() {
                         <div className='w-8 h-8 overflow-hidden relative rounded-full' onClick={()=> setOpen(!isOpen)}>
                             <Image
                                 fill
-                                src={`${userdata ? userdata[0].ProfileImg : '/user_profile_placeholder.jpg'}`} 
+                                src={userdata?.[0]?.ProfileImg ? userdata[0].ProfileImg : '/user_profile_placeholder.jpg'} 
                                 alt='user profile'
                                 loading='lazy'
                                 placeholder='blur'
