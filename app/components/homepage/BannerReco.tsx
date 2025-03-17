@@ -30,7 +30,7 @@ export default function BannerReco({ Drama }: BannerProps) {
 
   return (
     <div className='py-5'>
-      <div className="relative font-nunito w-full px-5 py-8 h-[37.5rem] rounded-xl">
+      <div className="relative font-nunito w-full px-5 py-8 h-96 xl:h-[37.5rem] rounded-xl">
         <Image 
           loading='lazy'
           placeholder='blur'
@@ -42,16 +42,16 @@ export default function BannerReco({ Drama }: BannerProps) {
         />
         <div className="absolute inset-0 bg-black/80 rounded-xl"/>
 
-        <div className='absolute bottom-36 left-24 text-white font-bold flex flex-col gap-2'>
+        <div className='absolute xl:top-36 xl:left-24 text-white font-bold flex flex-col gap-2'>
           <div>
-            <h1 className='text-[3.125rem] font-mono'>{Drama[0].name}</h1>
+            <h1 className='text-xl md:text-[3.125rem] font-mono'>{Drama[0].name}</h1>
             <h1 className='text-red-600'>{genreNames}</h1>
           </div>
-          <h1 className='w-2/5 mt-5 text-gray-300 text-xs'>{Drama[0].overview}</h1>
+          <h1 className='w-full pr-4 sm:pr-0 sm:w-3/4 md:w-2/5 mt-5 text-gray-300 text-xs lg:text-xl'>{Drama[0].overview.substring(0, 450)}- </h1>
         </div>
 
-        <div className='trailer absolute right-12 bottom-20 text-white'>
-          <div className='relative w-48 h-72'>
+        <div className='trailer absolute md:right-5 md:bottom-5 xl:right-12 xl:bottom-12 text-white'>
+          <div className='hidden md:block relative w-36 h-48 xl:w-48 xl:h-72'>
             <Image 
               loading='lazy'
               placeholder='blur'

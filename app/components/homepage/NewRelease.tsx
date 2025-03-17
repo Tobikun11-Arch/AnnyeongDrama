@@ -26,7 +26,7 @@ export default function NewRelease({ Release }: { Release: TMDBResponse }) {
         <div>
            <div>
                 <h1 className='text-4xl font-semibold mt-5'>New Release</h1>
-                <h4 className='text-xs lg:text-md'>What are your thoughts on this? Share your thoughts with the <span className='text-blue-600' onClick={handleCommunity}>Community</span></h4>
+                <h4 className='text-xs lg:text-xl'>What are your thoughts on this? Share your thoughts with the <span className='text-blue-600' onClick={handleCommunity}>Community</span></h4>
            </div>
 
            <div className="overflow-x-auto overflow-visible w-full">
