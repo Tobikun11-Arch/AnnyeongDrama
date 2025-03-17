@@ -35,12 +35,12 @@ export default function BannerReco({ Drama }: BannerProps) {
           loading='lazy'
           placeholder='blur'
           blurDataURL='/placeholder.png'
-          src={`https://image.tmdb.org/t/p/original${Drama[0].backdrop_path}`} 
+          src={`https://image.tmdb.org/t/p/w1920_and_h1080_bestv2${Drama[0].backdrop_path}`}
           alt="Banner" 
           fill
-          className="absolute inset-24 rounded-xl"
+          className="absolute inset-24 rounded-xl object-cover object-top"
         />
-        <div className="absolute inset-0 bg-black/60 rounded-xl"/>
+        <div className="absolute inset-0 bg-black/80 rounded-xl"/>
 
         <div className='absolute bottom-36 left-24 text-white font-bold flex flex-col gap-2'>
           <div>

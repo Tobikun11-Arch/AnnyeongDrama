@@ -59,8 +59,12 @@ export default function Page() {
                     )}
                     <button className='py-1 px-2 rounded-lg border' onClick={()=> paginationImage('next')}><ChevronRight /></button>
                 </div>
+
                 <BannerReco Drama={popular}/>
                 <NewRelease Release={popular}/>
+
+                {/**Top Contributors area */}
+                <h1 className='font-semibold text-xl mt-10'>Top Contributors</h1>
             </div>
         </main>
     )
