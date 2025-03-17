@@ -44,7 +44,7 @@ export default function Page() {
             <div className='px-4 xl:px-16 py-5'>
                 <KdramaList drama={data} />
 
-                <div className='flex gap-2 mt-3 items-center justify-end'>
+                <div className='flex gap-2 mt-1 items-center justify-end'>
                     <button className='py-1 px-2 rounded-lg border' onClick={()=> paginationImage('previous')}><ChevronLeft /></button>
                     {currentPage > 1 && (
                         <p className='py-1 px-2  border' onClick={()=> paginationImage('previous')}>{`${currentPage - 1}`}</p>

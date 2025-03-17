@@ -35,7 +35,7 @@ export default function KdramaList({ drama }: AiringProps) {
                 type="text" 
                 name="drama" 
                 id="drama" 
-                className='w-40 sm:w-60 outline-none border p-2 rounded-lg' 
+                className='w-36 sm:w-64 outline-none border p-2 rounded-lg' 
                 placeholder='Search kdramas' 
                 onKeyDown={handleSearch}
                 value={search}

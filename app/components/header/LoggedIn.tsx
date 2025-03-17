@@ -63,7 +63,7 @@ export default function LoggedIn() {
                <MenuList />
             )}
 
-            <div className='flex justify-between md:justify-around items-center'>
+            <div className='flex justify-between md:justify-around items-center px-2'>
                 <Menu className='md:hidden' onClick={()=> setMenu(true)}/>
                 <Logo />
                 <nav className='hidden md:block'>
