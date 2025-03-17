@@ -1,7 +1,12 @@
 import axios from "axios";
 
 export let totalPages = 0
+
+const currentYear = new Date().getFullYear();
+const firstDayOfYear = `${currentYear}-01-01`;  // January 1st
+const lastDayOfYear = `${currentYear}-12-31`;   // December 31st
 const API_KEY = process.env.NEXT_PUBLIC_API_KEY
+
 export const fetchdata = async(page: number) => {
     try {
         const response = await axios.get(`https://api.themoviedb.org/3/discover/tv`, {
@@ -14,8 +19,8 @@ export const fetchdata = async(page: number) => {
                 language: 'en-US', 
                 with_origin_country: 'KR',
                 with_status: 'Returning Series',
-                "first_air_date.gte": "2025-01-01",
-                "first_air_date.lte": "2025-12-31",
+                "first_air_date.gte": firstDayOfYear,
+                "first_air_date.lte": lastDayOfYear,
                 vote_count_gte: 10, 
                 page: page
             },
@@ -48,8 +53,8 @@ export const fetchPopular = async() => {
                 language: 'en-US', 
                 with_origin_country: 'KR',
                 with_status: 'Returning Series',
-                "first_air_date.gte": "2025-01-01",
-                "first_air_date.lte": "2025-12-31",
+                "first_air_date.gte": firstDayOfYear,
+                "first_air_date.lte": lastDayOfYear,
                 vote_count_gte: 10, 
             },
         });

@@ -3,9 +3,11 @@ import { TMDBResponse } from '@/app/types/dramaData'
 import Link from 'next/link';
 import Image from 'next/image';
 import { useTabs } from '@/app/state/DynamicTab';
+import { useUserData } from '@/app/state/UserData';
 
 export default function NewRelease({ Release }: { Release: TMDBResponse }) {
     const { setTab } = useTabs()
+    const { userdata } = useUserData()
 
     const sortedData = [...Release].sort((a, b) => {
         const dateA = a.first_air_date ? new Date(a.first_air_date).getTime() : 0;
@@ -13,12 +15,18 @@ export default function NewRelease({ Release }: { Release: TMDBResponse }) {
     
         return dateB - dateA; // Newest first
     }).slice(0,5);
+
+    const handleCommunity = () => {
+        if(userdata.length > 0) {
+            setTab('Community')
+        }
+    }
       
     return (
         <div>
            <div>
                 <h1 className='text-4xl font-semibold mt-5'>New Release</h1>
-                <h4>What are your thoughts on this? Share your thoughts with the <span className='text-blue-600'>Community</span></h4>
+                <h4>What are your thoughts on this? Share your thoughts with the <span className='text-blue-600' onClick={handleCommunity}>Community</span></h4>
            </div>
 
            <div className="grid md:grid-cols-5 xl:grid-cols-6 gap-3 mt-3 min-w-max xl:min-w-full">
