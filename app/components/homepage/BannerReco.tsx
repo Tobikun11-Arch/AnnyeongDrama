@@ -47,7 +47,7 @@ export default function BannerReco({ Drama }: BannerProps) {
             <h1 className='text-[3.125rem] font-mono'>{Drama[0].name}</h1>
             <h1 className='text-red-600'>{genreNames}</h1>
           </div>
-          <h1 className='w-2/5 mt-5 text-gray-300'>{Drama[0].overview}</h1>
+          <h1 className='w-2/5 mt-5 text-gray-300 text-xs'>{Drama[0].overview}</h1>
         </div>
 
         <div className='trailer absolute right-12 bottom-20 text-white'>
