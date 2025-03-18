@@ -19,8 +19,8 @@ export default function NavBar() {
                 setTab("Recommendations")
             break;
 
-            case 'Community':
-                setTab("Community")
+            case 'Social':
+                setTab("Social")
             break;
 
             case 'Challenge':
@@ -38,7 +38,7 @@ export default function NavBar() {
                 <NavList onclick={()=> handleTabs("Home")}>Home</NavList>
             </div>
             <NavList onclick={()=> handleTabs("Recommendations")}>Recommendations</NavList>
-            <NavList onclick={()=> handleTabs("Community")}>Community</NavList>
+            <NavList onclick={()=> handleTabs("Social")}>Social</NavList>
             <NavList onclick={()=> handleTabs("Challenge")}>Weekly Challenge</NavList>
         </ul>
     )

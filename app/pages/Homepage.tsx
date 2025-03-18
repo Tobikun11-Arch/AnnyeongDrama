@@ -8,7 +8,7 @@ import Page from '../components/homepage/page'
 import Footer from '../layout/Footer'
 import UserProfile from './UserProfile'
 import Recommendations from './Recommendations'
-import Community from './Community'
+import Social from './Social'
 import WeeklyChallenge from './WeeklyChallenge'
 
 export default function Homepage() {
@@ -19,7 +19,7 @@ export default function Homepage() {
         'SignIn': <SignIn/>,
         'MyAccount': <UserProfile/>,
         "Recommendations": <Recommendations/>,
-        "Community": <Community/>,
+        "Social": <Social/>,
         "Challenge": <WeeklyChallenge/>
     }
 
