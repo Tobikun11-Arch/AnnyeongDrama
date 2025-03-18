@@ -59,7 +59,7 @@ export default function EditProfile({ isOpen, closeModal }: EditProps) {
           ProfileImg: url
         } 
 
-        const response = await axios.post("http://localhost:5000/api/user/update", newData, { withCredentials: true })
+        const response = await axios.post("http://localhost:5000/api/auth/update", newData, { withCredentials: true })
         closeModal(); 
         queryClient.invalidateQueries({ queryKey: ['Verification'] });
 

@@ -46,7 +46,7 @@ export default function SignIn() {
                 password: password
             }
 
-            const response = await axios.post('http://localhost:5000/api/user/login', userData, { withCredentials: true })
+            const response = await axios.post('http://localhost:5000/api/auth/login', userData, { withCredentials: true })
             if(response.data.message === 'Login successful') {
                 toast.success("Login successful", {
                     duration: 3000,

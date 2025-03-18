@@ -47,7 +47,7 @@ export default function SignUp() {
                 password: password
             }
 
-            const response = await axios.post('http://localhost:5000/api/user/register', userData)
+            const response = await axios.post('http://localhost:5000/api/auth/register', userData)
             if(response.data.message === 'User registered successfully!') {
                 setSignUp(false)
                 toast.success("Registration successful!", {

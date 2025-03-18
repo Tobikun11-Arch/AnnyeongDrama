@@ -23,7 +23,7 @@ const fetchAuth = async(): Promise<ApiResponseData> => {
         return response.data
     } catch (error: any) {
         if (error.response && error.response.status === 401 || 403) {
-                return { message: 'Unauthorized', user: [] }; 
+            return { message: 'Unauthorized', user: [] }; 
         }
         console.error("Error: ", error)
         throw new Error("Failed to authenticate")
