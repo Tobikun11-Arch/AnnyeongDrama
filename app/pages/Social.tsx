@@ -2,6 +2,7 @@
 import React, { useState } from 'react'
 import axios from 'axios'
 import { IUser } from '../types/userData'
+import { SubProfile } from '../components/custom/SubProfile';
 
 export interface ApiResponseData {
     message: string;
@@ -46,15 +47,9 @@ export default function Social() {
             />
             <p>{searchError}</p>
             
-            {isUser && isUser.user.length > 0 && (
-                <>
-                    {isUser.user.map((user, index) => (
-                        <div key={`${user._id}-${index}`} className="p-2 text-black border mt-5">
-                            <h1>{user.Username}</h1>
-                        </div>
-                    ))}
-                </>
-            )}
+           <SubProfile 
+                user={isUser} 
+           />
         </main>
     )
 }
