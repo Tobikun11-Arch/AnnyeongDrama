@@ -2,7 +2,7 @@
 import React, { useState } from 'react'
 import axios from 'axios'
 import { IUser } from '../types/userData'
-import { SubProfile } from '../components/custom/SubProfile';
+import { SubProfile } from '../components/custom/profile-view/SubProfile';
 
 export interface ApiResponseData {
     message: string;
